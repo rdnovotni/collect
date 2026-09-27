@@ -1,6 +1,6 @@
 # Profiles — v0.1 (draft)
 
-A profile extends the core with fields for one kind of collectible. The postcard profile lives in [`profiles/postcard/0.1/`](../profiles/postcard/0.1/).
+A profile extends the core with fields for one kind of collectible. The postcard profile lives in [`profiles/postcard/0.1.0/`](../profiles/postcard/0.1.0/).
 
 ## Using profile fields
 
