@@ -63,6 +63,53 @@ def test_invalid_edtf_dates(date):
     assert errors(validate_records(load_records_from(rec)))
 
 
+def test_non_dict_record_is_rejected():
+    issues = validate_records(load_records_from("not an object"))
+    assert [i.level for i in issues] == ["error"]
+    assert "must be a JSON object" in issues[0].message
+
+
+def test_unknown_profile_prefix_warns_but_does_not_error():
+    rec = {"collect": "0.1", "id": "t:1", "layer": "catalog", "nosuchprofile:field": "x"}
+    issues = validate_records(load_records_from(rec))
+    assert errors(issues) == []
+    assert any("unknown profile 'nosuchprofile'" in i.message for i in issues)
+
+
+def test_invalid_layer_is_schema_error_and_skips_unknown_key_check():
+    # An unrecognized layer means _allowed_keys() can't look up its known fields, so the
+    # unknown-key check is skipped rather than flagging every key as unexpected.
+    rec = {"collect": "0.1", "id": "t:1", "layer": "not-a-real-layer", "title": "x"}
+    issues = errors(validate_records(load_records_from(rec)))
+    assert any(i.path == "$.layer" for i in issues)
+    assert not any(i.path == "$.title" for i in issues)
+
+
+def test_non_string_condition_scale_is_a_schema_error_only():
+    rec = {"collect": "0.1", "id": "t:1", "layer": "instance",
+           "condition": [{"scale": 123, "value": "mint"}]}
+    issues = validate_records(load_records_from(rec))
+    assert any(i.path == "$.condition[0].scale" for i in issues)
+    assert not any("condition scale" in i.message or "is not a grade" in i.message for i in issues)
+
+
+def test_unknown_condition_scale_warns():
+    rec = {"collect": "0.1", "id": "t:1", "layer": "instance",
+           "condition": [{"scale": "made-up-scale", "value": "mint"}]}
+    issues = validate_records(load_records_from(rec))
+    assert [i.level for i in issues] == ["warning"]
+    assert "unknown condition scale" in issues[0].message
+
+
+def test_reference_check_skips_malformed_records_without_crashing():
+    recs = load_records_from("oops") + load_records_from(
+        {"collect": "0.1", "id": "local:1", "layer": "instance", "instanceOf": "local:missing"}
+    )
+    issues = validate_records(recs)
+    assert any("must be a JSON object" in i.message for i in issues)
+    assert any("not found in the records checked" in i.message for i in issues)
+
+
 def load_records_from(rec):
     from collect_tools.validate import LoadedRecord
     return [LoadedRecord(rec, "<test>")]
