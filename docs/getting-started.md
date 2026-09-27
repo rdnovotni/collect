@@ -131,5 +131,6 @@ collect validate examples/package
 - [Schema reference](schema-reference.md) — every field, on every layer.
 - [`spec/profiles.md`](../spec/profiles.md) — write a profile for a hobby that doesn't have one yet.
 - [CLI reference](cli-reference.md) — every flag and exit code.
+- [Editor setup](editor-setup.md) — autocomplete and inline validation while you write records by hand.
 - [FAQ](faq.md) — common questions.
 - [CONTRIBUTING.md](../CONTRIBUTING.md) — the most useful contribution right now is a real record that doesn't fit the format.
