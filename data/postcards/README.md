@@ -1,12 +1,14 @@
 # Postcard research tables
 
-These empty CSV tables are the starting point for an open postcard catalog using [Collect postcard profile 0.1.0](../../profiles/postcard/0.1.0/profile.json). They contain no scraped records yet. `catalog.csv` is the exportable Collect table; `sources.csv` and `claims.csv` preserve the evidence behind each field. Use UTF-8, one header row, and one record per row. Keep stable IDs once assigned.
+These CSV tables are the starting point for an open postcard catalog using [Collect postcard profile 0.1.0](../../profiles/postcard/0.1.0/profile.json). The first batch has eight Missouri postcards documented by Library of Congress item records. `catalog.csv` is the exportable Collect table; `sources.csv` and `claims.csv` preserve the evidence behind each field. Use UTF-8, one header row, and one record per row. Keep stable IDs once assigned.
 
 ## Tables and keys
 
 - `catalog.csv`: one accepted **catalog** item or **variant** per row. `id` is unique. `layer` is `catalog` or `variant`, `category` is `postcard`. `variantOf` points to a catalog ID; `work` points to a separately validated work record if one is created. The header deliberately uses only columns supported by `collect csv2json`.
 - `sources.csv`: one distinct source page or archival item per row. `source_id` is unique and local to this research database. Keep the original URL and a stable title; record access date as `YYYY-MM-DD`. `rights_or_terms` documents use restrictions and does **not** assert permission to republish an image.
 - `claims.csv`: one source-backed observation about one proposed field value per row. `claim_id` is unique; `record_id` refers to a proposed/accepted catalog ID and `source_id` to `sources.csv`. `field` should be a `catalog.csv` header, such as `agent.publisher`, `date`, or `postcard:printProcess`. For evidence that cannot yet fit a Collect field, leave `field` empty and explain in `review_notes`. Preserve the source wording in `observed_value`, and put the proposed catalog value in `normalized_value`. A locator may be a page, image side, accession number, or section. Keep excerpts brief.
+
+The `postcards:` prefix denotes this project's catalog IDs and must be assigned a stable URI expansion in a future package manifest. A `loc-...` suffix records which LOC item motivated the initial entry; it is **not** a publisher number or a claim that the LOC exemplar is the whole edition. Source access dates are in UTC and refer to the research session. LOC's `c1908` copyright year is represented as an approximate catalog date (`1908~`) until an issue date is verified.
 
 ## Review process
 
