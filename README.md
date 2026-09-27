@@ -46,6 +46,15 @@ Highlights of the design:
 - **Condition scales are pluggable**: `postcard-basic`, `raw-card`, `ten-point`, or your own.
 - **Spreadsheets are first-class**: a defined CSV mapping converts in both directions.
 
+## Documentation
+
+- [`docs/getting-started.md`](docs/getting-started.md) — install the tools and write, validate, and convert your first records.
+- [`docs/architecture.md`](docs/architecture.md) — why the format is shaped this way, and what alternatives were rejected.
+- [`docs/schema-reference.md`](docs/schema-reference.md) — every field, on every layer, in one place.
+- [`docs/cli-reference.md`](docs/cli-reference.md) — every `collect` subcommand, flag, and exit code.
+- [`docs/faq.md`](docs/faq.md) — answers to questions that come up repeatedly.
+- [`spec/`](spec/core.md) — the specification itself: terse and normative.
+
 ## Repository layout
 
 ```
@@ -80,6 +89,8 @@ The validator checks structure, dates, profile fields, condition grades, and ref
 - **v0.1** — Core schema, postcard profile, CSV mapping, packages, validator *(this release)*
 - **v0.2** — Sports card profile; importers for spreadsheet exports from existing card and coin sites
 - **v0.3** — A simple reference collection manager, then an open postcard catalog built on Collect
+
+See [ROADMAP.md](ROADMAP.md) for the full plan — core spec, profiles, tooling, ecosystem, quality, docs, and governance — and how to help move any of it forward.
 
 ## Contributing
 

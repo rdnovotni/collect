@@ -4,6 +4,8 @@ All notable changes to the Collect specification, profiles, and tools are listed
 
 ## Unreleased
 
+- Added `docs/` (architecture and design rationale, schema reference, CLI reference, getting-started walkthrough, FAQ) and `ROADMAP.md` (the full plan across core spec, profiles, tooling, ecosystem, quality, docs, and governance). No changes to the spec, schema, or tools.
+
 ## 0.1.0 — draft
 
 - Core record format with five layers: work, catalog, variant, instance, collection.
