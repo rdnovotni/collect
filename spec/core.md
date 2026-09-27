@@ -48,6 +48,15 @@ An `id` is either an absolute URI or a compact identifier `prefix:path`, such as
 - The prefix `local:` is reserved for records that are only meaningful inside one person's collection (`local:0042`). Tools MUST NOT assume `local:` ids are unique across collections.
 - Once published, catalog ids SHOULD NOT change. Replace a record by publishing a new one with a `replaces` relationship.
 
+### 4.1. Merging `local:` records from two collections
+
+A tool that combines two people's collections (or imports one person's export into another's) MUST NOT assume their `local:` ids refer to different things just because the strings differ, nor that two records sharing a `local:` id are the same thing. Concretely:
+
+- **Detect** a collision only when two records' `local:` ids are the literal same string; two different `local:` ids are never assumed to collide, and are never assumed to be duplicates of each other either.
+- **Remap, don't overwrite.** When merging into one dataset, generate a fresh id for every incoming record whose `local:` id already exists in the target (or simply re-mint every incoming `local:` id to guarantee no collision), and rewrite every reference to the old id within the same merge — `instanceOf`, `variantOf`, `work`, `relationships[].target`, and collection `entries[].ref` — so the merged dataset stays internally consistent. Never silently drop or overwrite one side's record because its id matched the other's.
+- **Prefer promoting to a stable prefix over remapping within `local:`.** If the merge is really a publication step (one collector's records becoming part of a shared catalog), assigning the records a real, stable prefix per §4 is usually the better fix than perpetuating `local:` ids across collections.
+- Tools SHOULD keep a record of the remapping (old id → new id) for the duration of the merge so any external references the user holds (e.g. in a collection list they didn't include in this merge) can be updated too.
+
 External numbering systems go in `identifiers`, as `{ "scheme": ..., "value": ... }` pairs, never in `id`. Recording another scheme's number is a cross-reference; it does not make the record part of that scheme's catalog.
 
 ## 5. Descriptive fields (all layers)
