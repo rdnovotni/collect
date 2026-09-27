@@ -39,6 +39,21 @@ collect validate my-collection/ --strict
 collect validate my-collection/ --format json > report.json
 ```
 
+## `collect init`
+
+```
+collect init --layer <layer> [--category <category>] [-o <output>]
+```
+
+Scaffolds a minimal record for the given layer — `work`, `catalog`, `variant`, `instance` or `collection` — so a first-time user starts from a valid record instead of a blank file. The scaffold is validated against `collect validate` before it's printed; if `--category` names a category with a matching profile (see [`spec/profiles.md`](../spec/profiles.md)), the `category` field is set and the profile's fields available on that layer are listed as a `NOTE` on stderr, so you know what to fill in without the tool guessing values for you.
+
+A `variant` scaffold's `variantOf` is left as an obvious placeholder (`local:REPLACE_WITH_CATALOG_ID`) you must edit — validating it alone produces an unresolved-reference *warning*, not an error, so `collect validate` on a fresh scaffold still exits `0` (add `--strict` to be reminded to fill it in).
+
+```bash
+collect init --layer work
+collect init --layer instance --category postcard -o my-postcard.json
+```
+
 ## `collect check-standard`
 
 ```

@@ -58,3 +58,25 @@ def test_validate_malformed_json_reports_error_and_exits(tmp_path, capsys):
     bad.write_text("{not valid json", encoding="utf-8")
     assert main(["validate", str(bad)]) == 2
     assert "could not read" in capsys.readouterr().err
+
+
+def test_init_scaffold_validates_cleanly(tmp_path, capsys):
+    out = tmp_path / "scaffold.json"
+    assert main(["init", "--layer", "work", "-o", str(out)]) == 0
+    assert main(["validate", "--strict", str(out)]) == 0
+
+
+def test_init_with_category_prints_profile_field_hint(capsys):
+    assert main(["init", "--layer", "instance", "--category", "postcard"]) == 0
+    out, err = capsys.readouterr()
+    record = json.loads(out)
+    assert record["category"] == "postcard"
+    assert "postcard:era" in err
+
+
+def test_init_variant_scaffold_validates_without_errors(tmp_path):
+    out = tmp_path / "scaffold.json"
+    assert main(["init", "--layer", "variant", "-o", str(out)]) == 0
+    # Not --strict: the placeholder variantOf is an unresolved-reference warning, not an error.
+    assert main(["validate", str(out)]) == 0
+    assert main(["validate", "--strict", str(out)]) == 1
