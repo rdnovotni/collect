@@ -1,0 +1,19 @@
+# Postcard research tables
+
+These empty CSV tables are the starting point for an open postcard catalog using [Collect postcard profile 0.1.0](../../profiles/postcard/0.1.0/profile.json). They contain no scraped records yet. `catalog.csv` is the exportable Collect table; `sources.csv` and `claims.csv` preserve the evidence behind each field. Use UTF-8, one header row, and one record per row. Keep stable IDs once assigned.
+
+## Tables and keys
+
+- `catalog.csv`: one accepted **catalog** item or **variant** per row. `id` is unique. `layer` is `catalog` or `variant`, `category` is `postcard`. `variantOf` points to a catalog ID; `work` points to a separately validated work record if one is created. The header deliberately uses only columns supported by `collect csv2json`.
+- `sources.csv`: one distinct source page or archival item per row. `source_id` is unique and local to this research database. Keep the original URL and a stable title; record access date as `YYYY-MM-DD`. `rights_or_terms` documents use restrictions and does **not** assert permission to republish an image.
+- `claims.csv`: one source-backed observation about one proposed field value per row. `claim_id` is unique; `record_id` refers to a proposed/accepted catalog ID and `source_id` to `sources.csv`. `field` should be a `catalog.csv` header, such as `agent.publisher`, `date`, or `postcard:printProcess`. For evidence that cannot yet fit a Collect field, leave `field` empty and explain in `review_notes`. Preserve the source wording in `observed_value`, and put the proposed catalog value in `normalized_value`. A locator may be a page, image side, accession number, or section. Keep excerpts brief.
+
+## Review process
+
+1. Register the source and its URL before extracting observations. Record each distinct assertion as a claim. Set `review_status` to `pending`, `accepted`, or `rejected`; use `low`, `medium`, or `high` for confidence. These are research statuses, not Collect fields.
+2. Compare possible duplicates by publisher, series/card number, title, image, and back. Give distinct printings a `variant` record only when the evidence supports a real physical distinction. Do not assign an exact year from a postmark or a broad US era alone. Collect `date` accepts EDTF such as `1907/1915` and `1906~`.
+3. Put only reviewed, supported values in `catalog.csv`. If sources conflict, retain each claim and explain the catalog decision in `review_notes`. Keep uncertain identifications provisional outside the export until supported.
+4. Populate `image.front`/`image.back` only with distributable image files or URLs, and set `image.rights` per Collect. If rights vary by image, leave images out of the CSV and add them directly to JSON with separate rights. A source URL in `sources.csv` is evidence, not an image license. Do not infer public-domain status from age alone.
+5. Run `collect csv2json data/postcards/catalog.csv -o /tmp/postcards.json` and `collect validate /tmp/postcards.json`. The CSV mapping intentionally loses `sources` and `relationships`; when publishing records, join the accepted claims and source registry into each record's `sources` array, and add any series relationships in JSON before packaging. Do not treat a bare CSV conversion as the fully sourced public catalog.
+
+`number` is the position within a series. Put a publisher's printed series/card number in `identifier.publisher-series`; use `identifier.tuckdb` only as a cross-reference, not as a new Collect ID. `postcard:posted`, `postcard:postmark`, `postcard:message`, postage, condition, purchase, and storage describe an individual **instance** and therefore do not belong in this public catalog table. The workbook provides editable copies of these three table headers.
