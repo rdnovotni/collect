@@ -10,14 +10,25 @@ Genealogy has GEDCOM. Collect aims to be the same thing for collectibles: boring
 
 ## Release milestones
 
-- **v0.1 (current)** — Core schema (5 layers), postcard profile, CSV mapping, packages, reference validator and CLI, CI, issue/PR templates.
-- **v0.2 (next)** — Sports card profile; first real-world importer(s) from existing spreadsheet/export formats; core-freeze candidate.
+- **v0.1 (current)** — Core schema (5 layers), postcard and sports-card profiles, CSV mapping, packages, reference validator and CLI, CI, issue/PR templates.
+- **v0.2 (next)** — First real-world importer(s) from existing spreadsheet/export formats; `collect-tools` on PyPI; core-freeze candidate.
 - **v0.3** — A simple reference collection manager; groundwork for an open, community-run postcard catalog built on Collect.
-- **v1.0** — Core spec frozen and versioned for real; conformance test suite; multiple independent implementations exist.
+- **v1.0** — Core spec frozen and versioned for real, against the criteria below; conformance test suite; multiple independent implementations exist.
+
+## 1.0 freeze criteria
+
+"Ready for 1.0" means all of the following hold at once, not just at some point in the past:
+
+1. **At least three profiles at `status: stable`** (not `draft`) — postcard and sports-card plus one more (§2) — so the profile mechanism is proven outside its original use case.
+2. **No breaking core-schema change** (`schema/0.1/*.schema.json` or `spec/core.md`'s normative rules) **for two consecutive minor spec releases**, so implementers aren't targeting a moving floor.
+3. **A public, versioned, implementation-agnostic conformance test suite** exists (§4) — not just this repo's `pytest` fixtures.
+4. **A second independent implementation** (any language) passes that conformance suite.
+5. **All P0 items across every section of this roadmap are closed.**
+
+Until all five hold, the spec stays "draft" — see [`spec/core.md`](spec/core.md) — and any of them may still change core behavior.
 
 ## 1. Core spec & schema
 
-- **P0 — Decide the 1.0 freeze criteria.** Write down explicitly what "ready for 1.0" means (e.g.: N profiles shipped, zero breaking core changes for N months, a second independent implementation passing the conformance suite) so "draft" has a visible finish line instead of drifting indefinitely.
 - **P1 — EDTF Level 2 subset, if a profile needs it.** Seasons, sets of dates (`[1667,1668,1670]`), and qualified individual date-parts aren't in v0.1's subset (see [`spec/core.md` §6](spec/core.md#6-dates)). Add only when a concrete profile needs one of these, so the grammar doesn't grow speculatively.
 - **P1 — Formalize the `local:` id-collision story.** The spec says tools must not assume `local:` ids are unique across collections; write concrete guidance for tools that need to merge two people's `local:` records (id remapping on import) rather than leaving it as an implementer's problem each time.
 - **P2 — Multi-part / composite items.** Sets that ship as one physical unit (a boxed set, a booklet of stamps, a multi-card insert) don't yet have a clean modeling story distinct from a `collection`. Needs a concrete failure case from real data before designing further, per the project's own contribution priorities.
@@ -26,7 +37,6 @@ Genealogy has GEDCOM. Collect aims to be the same thing for collectibles: boring
 
 ## 2. Profiles
 
-- **P0 — `sports-card`.** Already scoped in [`spec/profiles.md`](spec/profiles.md#planned-profiles): set, card number, parallel, serial numbering, team, rookie flag, autograph and relic details. The natural next profile after postcards, and the first real test of the profile mechanism outside its original use case.
 - **P1 — `coin`.** Mint mark, denomination, metal composition, mintage, die variety.
 - **P1 — `stamp`.** Perforation, watermark, gum condition, plate/cylinder number — postal history overlaps meaningfully with the postcard profile's `postmark`.
 - **P2 — `trading-card` / `non-sport-card`** (already in `vocab/categories.json`), **`comic`**, **`vinyl-record`**, **`banknote`**, **`ticket`/`program`**. Prioritize by contributor interest — a profile needs a domain expert willing to shape it, not just a category slug that already exists.
@@ -35,7 +45,7 @@ Genealogy has GEDCOM. Collect aims to be the same thing for collectibles: boring
 
 ## 3. Tooling & developer experience
 
-- **P0 — Ship `collect-tools` to PyPI.** It's currently install-from-source only (`pip install -e ".[dev]"`); a tagged PyPI release is the difference between "clone the repo" and "pip install" for every downstream tool and profile author.
+- **P0 — Ship `collect-tools` to PyPI.** It's currently install-from-source only (`pip install -e ".[dev]"`); a tagged PyPI release is the difference between "clone the repo" and "pip install" for every downstream tool and profile author. The release workflow ([`.github/workflows/release.yml`](.github/workflows/release.yml)) is in place, using PyPI's Trusted Publishing (OIDC, no stored API token) triggered on a GitHub Release; what's left is a maintainer creating the `collect-tools` project on PyPI, registering this workflow as its trusted publisher, bumping the version past the `.dev0` placeholder in [`src/collect_tools/__init__.py`](src/collect_tools/__init__.py), and cutting the first tagged release.
 - **P1 — JSON Schema editor support.** Publish the schemas somewhere `$schema`-aware editors (VS Code + the JSON extension, IntelliJ) can resolve for live autocomplete and inline validation while hand-writing records — depends on stable schema hosting (§1).
 - **P1 — `collect init` / `collect new`.** A command that scaffolds a minimal valid record for a given layer and category, so a first-time user doesn't start from a blank file.
 - **P1 — Richer CI-friendly output.** `--format json` already exists (see [CLI reference](docs/cli-reference.md)); add a GitHub Actions problem-matcher / SARIF option so validator issues show as inline PR annotations on downstream catalog repos, not just log lines.
@@ -54,7 +64,7 @@ Genealogy has GEDCOM. Collect aims to be the same thing for collectibles: boring
 
 ## 5. Quality, testing & security
 
-- **P0 — Keep 100% of `check-standard`/`validate` paths covered by `pytest`.** Already true today (46 tests, all green) — the goal is to keep any new validator behavior landing with a fixture in `tests/fixtures`, not just an example that happens to pass.
+- **P0 — Keep 100% of `check-standard`/`validate` paths covered by `pytest`.** Already true today (all tests green, including both profiles' examples) — the goal is to keep any new validator behavior landing with a fixture in `tests/fixtures`, not just an example that happens to pass.
 - **P1 — Fuzz/property-based testing of the EDTF pattern and the validator.** The EDTF regex in [`common.schema.json`](schema/0.1/common.schema.json) is intricate; property-based tests (e.g. Hypothesis) generating both valid and invalid date strings would catch edge cases example-based tests miss.
 - **P1 — Dependency and supply-chain hygiene.** Pin/audit the two runtime dependencies (`jsonschema`, `referencing`) and add Dependabot (or equivalent) so version bumps are reviewed rather than silent.
 - **P2 — Large-package performance.** `collect validate` currently loads everything into memory; before packages reach real-catalog scale (thousands of records with images), profile it and consider streaming validation for `.jsonl` packages.
@@ -62,9 +72,7 @@ Genealogy has GEDCOM. Collect aims to be the same thing for collectibles: boring
 
 ## 6. Documentation & website
 
-- **P0 — This documentation pass.** [`docs/`](docs/README.md) (architecture, schema reference, CLI reference, getting-started, FAQ) — done alongside this roadmap. Keep it in sync with the spec going forward; a doc that drifts from the schema is worse than no doc.
 - **P1 — A project website.** A static site (rendering `spec/`, `docs/`, and a live schema browser) is a much lower barrier to first contact than "clone the repo and read Markdown," especially for non-developer collectors evaluating whether to care.
-- **P1 — Worked examples for at least one more hobby**, once a second profile ships (§2) — the postcard examples currently do a lot of the work of showing what "good" looks like; a second worked example proves the pattern generalizes.
 - **P2 — A visual diagram of the layer model** (work → catalog → variant → instance, collection alongside) for the README and website — the concept is simple once seen, and currently only exists as the table in [README.md](README.md#the-core-idea-layers).
 - **P3 — Translations of the spec.** Not urgent while the spec itself is still changing pre-1.0 (translations would need re-syncing on every change), but worth planning for once the core freezes.
 

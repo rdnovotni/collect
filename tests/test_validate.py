@@ -18,7 +18,7 @@ def test_standard_files_are_valid():
     assert errors(check_standard()) == []
 
 
-@pytest.mark.parametrize("target", ["examples/postcard", "examples/package"])
+@pytest.mark.parametrize("target", ["examples/postcard", "examples/sports-card", "examples/package"])
 def test_examples_are_valid_without_warnings(target):
     issues = validate_records(load_records(ROOT / target))
     assert issues == [], "\n".join(map(str, issues))

@@ -1,0 +1,30 @@
+{
+  "collect": "0.1",
+  "id": "local:0101",
+  "layer": "instance",
+  "category": "sports-card",
+  "title": "Jamie Lin — Autographed Patch Rookie",
+  "date": "2024",
+  "agents": [
+    { "role": "subject", "name": "Jamie Lin" },
+    { "role": "team", "name": "Example Bay Sharks" }
+  ],
+  "status": "owned",
+  "condition": [
+    { "scale": "raw-card", "value": "NM" }
+  ],
+  "acquired": {
+    "date": "2024-11",
+    "price": { "amount": 120, "currency": "USD" },
+    "from": "Local card shop"
+  },
+  "sports-card:set": "2024 Example Prestige",
+  "sports-card:parallel": "Patch Autographs",
+  "sports-card:printRun": 25,
+  "sports-card:serialNumber": 7,
+  "sports-card:rookie": true,
+  "sports-card:autographType": "on-card",
+  "sports-card:autographInscription": "Rookie 2024",
+  "sports-card:relicMaterial": "patch",
+  "sports-card:relicDescription": "Two-color jersey number patch"
+}

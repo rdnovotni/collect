@@ -21,6 +21,6 @@ jobs:
       - name: Check the standard's own files
         run: collect check-standard --strict
       - name: Validate examples
-        run: collect validate --strict examples/postcard examples/package
+        run: collect validate --strict examples/postcard examples/sports-card examples/package
       - name: Tests
         run: pytest -q
