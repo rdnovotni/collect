@@ -8,6 +8,8 @@ All notable changes to the Collect specification, profiles, and tools are listed
 - Added the `sports-card` profile 0.1.0 (`set`, `parallel`, `printRun`, `serialNumber`, `rookie`, `autographType`/`autographInscription`, `relicMaterial`/`relicDescription`) with its own vocabularies and worked examples under `examples/sports-card/`. Player and team stay ordinary core `agents`; the card's position within its set stays the core `number` field.
 - Decided the 1.0 freeze criteria (see `ROADMAP.md`'s new "1.0 freeze criteria" section): three stable profiles, a stability window with no breaking core changes, a public conformance suite, a second independent implementation, and every P0 roadmap item closed.
 - Added `.github/workflows/release.yml`, a PyPI Trusted Publishing (OIDC) release workflow, and a "Releasing" section in `CONTRIBUTING.md`. Publishing itself still needs a maintainer to register the trusted publisher on PyPI and cut the first tagged release.
+- Bumped `collect_tools.__version__` past the `0.1.0.dev0` placeholder to `0.1.0`, clearing the last code-side blocker on the PyPI release roadmap item.
+- Closed the remaining gaps in `pytest` coverage of the `check-standard`/`validate` code paths (`validate.py` is now fully covered; `cli.py`'s `validate`/`check-standard`/`--format json` paths and error handling are too), with new fixtures for malformed records, unknown profile prefixes, invalid `layer`/condition-scale values, and a broken standalone data root exercising `check_standard()`'s own error-reporting branches.
 
 ## 0.1.0 — draft
 
