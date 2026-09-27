@@ -4,6 +4,7 @@ All notable changes to the Collect specification, profiles, and tools are listed
 
 ## Unreleased
 
+- Added a `mkdocs`-based project website (`mkdocs.yml`, the `docs` extra, `.github/workflows/docs.yml`) rendering `docs/`, `spec/`, and a generated schema/profile browser. The workflow is ready but not yet live — a maintainer still needs to enable GitHub Pages ("Build and deployment: GitHub Actions") once.
 - Added `docs/` (architecture and design rationale, schema reference, CLI reference, getting-started walkthrough, FAQ) and `ROADMAP.md` (the full plan across core spec, profiles, tooling, ecosystem, quality, docs, and governance). No changes to the spec, schema, or tools.
 - Added the `sports-card` profile 0.1.0 (`set`, `parallel`, `printRun`, `serialNumber`, `rookie`, `autographType`/`autographInscription`, `relicMaterial`/`relicDescription`) with its own vocabularies and worked examples under `examples/sports-card/`. Player and team stay ordinary core `agents`; the card's position within its set stays the core `number` field.
 - Decided the 1.0 freeze criteria (see `ROADMAP.md`'s new "1.0 freeze criteria" section): three stable profiles, a stability window with no breaking core changes, a public conformance suite, a second independent implementation, and every P0 roadmap item closed.

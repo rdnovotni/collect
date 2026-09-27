@@ -12,4 +12,6 @@ The [`spec/`](../spec/core.md) directory is the specification itself — terse a
 
 If something here and the spec disagree, the spec wins — [open an issue](https://github.com/rdnovotni/collect/issues) so we can fix the drift.
 
+This directory, `spec/`, and a generated schema/profile browser also build into a static site (see [`mkdocs.yml`](../mkdocs.yml)); it will be live at <https://rdnovotni.github.io/collect/> once a maintainer enables GitHub Pages for this repository.
+
 For where the project is going next, see [ROADMAP.md](../ROADMAP.md). For how to contribute, see [CONTRIBUTING.md](../CONTRIBUTING.md).
