@@ -1,0 +1,47 @@
+{
+  "$schema": "../../../schema/0.1/profile.schema.json",
+  "id": "stamp",
+  "version": "0.1.0",
+  "collect": "0.1",
+  "title": "Stamps",
+  "description": "Fields for postage stamps. Fields allowed on 'catalog' are also allowed on 'instance' so that uncataloged stamps can be described fully. Postal history overlaps meaningfully with the postcard profile's 'postmark' field, which this profile deliberately mirrors rather than shares, since profile fields are self-contained.",
+  "status": "draft",
+  "categories": ["stamp"],
+  "fields": {
+    "perforation": {
+      "description": "Perforation gauge as commonly measured, e.g. '11' or '11 x 10.5' (horizontal x vertical when they differ). Free text: gauge measurements don't fit a closed vocabulary.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "watermark": {
+      "description": "The watermark design, when present.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/watermarks.json"
+    },
+    "plateNumber": {
+      "description": "Plate or cylinder number printed in the sheet margin, when recorded for this specific printing.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "gumCondition": {
+      "description": "Condition of the gum on the back of this specific stamp. 'none' covers used stamps and others with no gum expected.",
+      "layers": ["instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/gum-conditions.json"
+    },
+    "postmark": {
+      "description": "Postmark as it appears on this stamp (on or off cover). Deliberately mirrors the postcard profile's 'postmark' field rather than sharing it.",
+      "layers": ["instance"],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "date": { "$ref": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/common.schema.json#/$defs/edtf" },
+          "place": { "type": "string" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

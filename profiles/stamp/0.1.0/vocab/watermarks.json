@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../schema/0.1/vocabulary.schema.json",
+  "id": "watermarks",
+  "title": "Stamp watermarks",
+  "description": "Common watermark designations. Watermarks are heavily country- and issue-specific; this is a small starter list, not exhaustive -- an unlisted value is a warning, not an error.",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "none", "label": "No watermark" },
+    { "id": "single-crown", "label": "Single crown" },
+    { "id": "multiple-crown", "label": "Multiple crown" },
+    { "id": "script-lettering", "label": "Script lettering" },
+    { "id": "other", "label": "Other" }
+  ]
+}

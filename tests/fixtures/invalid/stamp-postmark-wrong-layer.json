@@ -1,0 +1,7 @@
+{
+  "collect": "0.1",
+  "id": "t:14",
+  "layer": "catalog",
+  "category": "stamp",
+  "stamp:postmark": { "place": "Chicago, Ill." }
+}

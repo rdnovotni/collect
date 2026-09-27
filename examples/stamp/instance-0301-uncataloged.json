@@ -1,0 +1,21 @@
+{
+  "collect": "0.1",
+  "id": "local:0301",
+  "layer": "instance",
+  "category": "stamp",
+  "title": "3c George Washington, perf 11",
+  "description": "Not yet matched to a catalog number; described directly.",
+  "date": "1932/1938",
+  "status": "owned",
+  "images": [
+    {
+      "file": "images/local-0301-front.jpg",
+      "side": "front",
+      "rights": { "status": "public-domain", "note": "Owner's scan of a used stamp." }
+    }
+  ],
+  "stamp:perforation": "11",
+  "stamp:watermark": "none",
+  "stamp:gumCondition": "hinged",
+  "stamp:postmark": { "date": "1935-06", "place": "Chicago, Ill." }
+}
