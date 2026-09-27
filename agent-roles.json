@@ -1,0 +1,65 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "agent-roles",
+  "title": "Agent roles",
+  "description": "How a person or organization was involved with an item.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "publisher",
+      "label": "Publisher"
+    },
+    {
+      "id": "manufacturer",
+      "label": "Manufacturer"
+    },
+    {
+      "id": "printer",
+      "label": "Printer"
+    },
+    {
+      "id": "artist",
+      "label": "Artist"
+    },
+    {
+      "id": "photographer",
+      "label": "Photographer"
+    },
+    {
+      "id": "designer",
+      "label": "Designer"
+    },
+    {
+      "id": "engraver",
+      "label": "Engraver"
+    },
+    {
+      "id": "mint",
+      "label": "Mint"
+    },
+    {
+      "id": "issuer",
+      "label": "Issuer"
+    },
+    {
+      "id": "distributor",
+      "label": "Distributor"
+    },
+    {
+      "id": "retailer",
+      "label": "Retailer"
+    },
+    {
+      "id": "subject",
+      "label": "Subject (person depicted)"
+    },
+    {
+      "id": "team",
+      "label": "Team"
+    },
+    {
+      "id": "grader",
+      "label": "Grading company"
+    }
+  ]
+}

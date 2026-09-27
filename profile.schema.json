@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/profile.schema.json",
+  "title": "Collect v0.1 profile definition",
+  "description": "A profile adds category-specific fields to the core. Records use them as 'profileId:fieldName' keys. See spec/profiles.md.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "collect",
+    "title",
+    "fields"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "collect": {
+      "const": "0.1",
+      "description": "Core version this profile extends."
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "stable",
+        "deprecated"
+      ]
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Category slugs this profile is meant for."
+    },
+    "fields": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][A-Za-z0-9]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "description",
+          "layers",
+          "schema"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "layers": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "work",
+                "catalog",
+                "variant",
+                "instance",
+                "collection"
+              ]
+            }
+          },
+          "schema": {
+            "type": "object",
+            "description": "JSON Schema (2020-12) for the field's value. May $ref the core common schema."
+          },
+          "vocabulary": {
+            "type": "string",
+            "description": "Path, relative to the profile file, of a vocabulary the value should come from."
+          },
+          "private": {
+            "type": "boolean",
+            "description": "Personal data that tools should leave out of public exports by default."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

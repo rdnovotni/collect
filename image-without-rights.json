@@ -1,0 +1,10 @@
+{
+  "collect": "0.1",
+  "id": "t:9",
+  "layer": "catalog",
+  "images": [
+    {
+      "file": "a.jpg"
+    }
+  ]
+}

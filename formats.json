@@ -1,0 +1,18 @@
+{
+  "id": "postcard-formats",
+  "title": "Postcard formats",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "standard", "label": "Standard", "description": "About 3.5 x 5.5 in (US) — the typical size." },
+    { "id": "continental", "label": "Continental", "description": "About 4 x 6 in." },
+    { "id": "oversize", "label": "Oversize" },
+    { "id": "miniature", "label": "Miniature" },
+    { "id": "fold-out", "label": "Fold-out", "description": "Multiple views attached in a strip." },
+    { "id": "booklet", "label": "Booklet / letter card" },
+    { "id": "hold-to-light", "label": "Hold-to-light", "description": "Cut or translucent areas that glow when held to light." },
+    { "id": "mechanical", "label": "Mechanical", "description": "Moving parts: wheels, pull-tabs, spinners." },
+    { "id": "novelty-material", "label": "Novelty material", "description": "Wood, leather, aluminum, cork, celluloid and similar." },
+    { "id": "silk", "label": "Silk / embroidered" },
+    { "id": "other", "label": "Other" }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/pc7421",
+  "layer": "catalog",
+  "category": "postcard",
+  "title": "The Harbor from East Pier",
+  "work": "example:work/w0001",
+  "number": "3",
+  "date": "1906~",
+  "agents": [
+    {
+      "role": "publisher",
+      "name": "Example Publishing Co."
+    },
+    {
+      "role": "printer",
+      "name": "Example Lithograph Works"
+    }
+  ],
+  "identifiers": [
+    {
+      "scheme": "publisher-series",
+      "value": "7421"
+    }
+  ],
+  "places": [
+    {
+      "role": "depicted",
+      "name": "New York City",
+      "wikidata": "Q60"
+    }
+  ],
+  "relationships": [
+    {
+      "type": "part-of",
+      "target": "example:catalog/series-harbor-views"
+    }
+  ],
+  "images": [
+    {
+      "file": "images/pc7421-front.jpg",
+      "side": "front",
+      "rights": {
+        "status": "public-domain"
+      }
+    },
+    {
+      "file": "images/pc7421-back.jpg",
+      "side": "back",
+      "rights": {
+        "status": "public-domain"
+      }
+    }
+  ],
+  "postcard:era": "undivided-back",
+  "postcard:format": "standard",
+  "postcard:printProcess": "halftone",
+  "meta": {
+    "license": "CC0-1.0"
+  }
+}

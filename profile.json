@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../schema/0.1/profile.schema.json",
+  "id": "postcard",
+  "version": "0.1.0",
+  "collect": "0.1",
+  "title": "Postcards",
+  "description": "Fields for picture postcards, real-photo postcards (RPPCs) and related cards. Fields allowed on 'catalog' are also allowed on 'instance' so that uncataloged postcards can be described fully.",
+  "status": "draft",
+  "categories": ["postcard"],
+  "fields": {
+    "era": {
+      "description": "The production era of the card, following the conventional US postcard eras. Dates in the vocabulary are typical ranges, not hard rules.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/eras.json"
+    },
+    "format": {
+      "description": "Physical format of the card.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/formats.json"
+    },
+    "printProcess": {
+      "description": "How the image was produced.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/print-processes.json"
+    },
+    "stampBox": {
+      "description": "Text or maker mark in the stamp box, as printed (e.g. 'AZO' with triangles pointing up). Useful for dating real-photo postcards.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "posted": {
+      "description": "Whether this card went through the mail.",
+      "layers": ["instance"],
+      "schema": { "type": "boolean" }
+    },
+    "postmark": {
+      "description": "Postmark as it appears on this card.",
+      "layers": ["instance"],
+      "schema": {
+        "type": "object",
+        "properties": {
+          "date": { "$ref": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/common.schema.json#/$defs/edtf" },
+          "place": { "type": "string" },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "postage": {
+      "description": "Description of the stamp(s) affixed, e.g. '1c green Franklin'.",
+      "layers": ["instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "message": {
+      "description": "Transcription of the handwritten message.",
+      "layers": ["instance"],
+      "schema": { "type": "string" }
+    }
+  }
+}

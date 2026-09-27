@@ -1,0 +1,11 @@
+{
+  "collect": "0.1",
+  "id": "t:12",
+  "layer": "instance",
+  "acquired": {
+    "price": {
+      "amount": 3,
+      "currency": "dollars"
+    }
+  }
+}

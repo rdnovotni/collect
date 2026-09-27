@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/vocabulary.schema.json",
+  "title": "Collect v0.1 vocabulary",
+  "description": "A controlled list of terms: agent roles, relationship types, condition scales, profile values and so on.",
+  "type": "object",
+  "required": ["id", "title", "terms"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "license": { "type": "string" },
+    "ordered": { "type": "boolean", "description": "True when term order is meaningful (e.g. best to worst on a condition scale)." },
+    "terms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string" },
+          "description": { "type": "string" },
+          "range": { "type": "string", "description": "EDTF interval when the term is tied to a period." },
+          "aliases": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

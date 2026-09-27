@@ -1,0 +1,37 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "relationship-types",
+  "title": "Relationship types",
+  "description": "Links between records. Read as 'this record <type> target'.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "part-of",
+      "label": "Part of (a set, series or album)"
+    },
+    {
+      "id": "reprint-of",
+      "label": "Reprint of"
+    },
+    {
+      "id": "same-image-as",
+      "label": "Uses the same image as"
+    },
+    {
+      "id": "derived-from",
+      "label": "Derived from (cropped, flipped, recolored...)"
+    },
+    {
+      "id": "companion-of",
+      "label": "Companion of / pair with"
+    },
+    {
+      "id": "replaces",
+      "label": "Replaces (corrected or merged record)"
+    },
+    {
+      "id": "see-also",
+      "label": "See also"
+    }
+  ]
+}

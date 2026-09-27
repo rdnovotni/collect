@@ -1,0 +1,41 @@
+{
+  "collect": "0.1",
+  "id": "local:0043",
+  "layer": "instance",
+  "category": "postcard",
+  "title": "Family on porch of a farmhouse",
+  "description": "Unidentified real-photo postcard; no publisher. Described directly because it is not in any catalog.",
+  "date": "1910/1918?",
+  "places": [
+    {
+      "role": "found",
+      "name": "Estate sale lot"
+    }
+  ],
+  "status": "for-trade",
+  "condition": [
+    {
+      "scale": "postcard-basic",
+      "value": "EX",
+      "grader": "self"
+    }
+  ],
+  "images": [
+    {
+      "file": "images/local-0043-front.jpg",
+      "side": "front",
+      "rights": {
+        "status": "public-domain",
+        "note": "Unpublished pre-1929 photograph; owner's scan."
+      }
+    }
+  ],
+  "tags": [
+    "rppc",
+    "unidentified",
+    "people"
+  ],
+  "postcard:printProcess": "real-photo",
+  "postcard:stampBox": "AZO",
+  "postcard:posted": false
+}

@@ -1,0 +1,15 @@
+{
+  "id": "postcard-eras",
+  "title": "US postcard eras",
+  "description": "Conventional eras used by US collectors to date postcards. Ranges are typical, not strict; other countries' eras differ and may get their own vocabulary.",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "pioneer", "label": "Pioneer", "range": "1893/1898", "description": "Early cards, including exposition souvenirs, before private mailing cards were authorized." },
+    { "id": "private-mailing-card", "label": "Private Mailing Card", "range": "1898/1901", "description": "Backs printed 'Private Mailing Card'; message not allowed on the address side." },
+    { "id": "undivided-back", "label": "Undivided back", "range": "1901/1907", "description": "Address only on the back; messages written on the front." },
+    { "id": "divided-back", "label": "Divided back", "range": "1907/1915", "description": "Back divided into message and address halves; often called the golden age." },
+    { "id": "white-border", "label": "White border", "range": "1915/1930", "description": "White margin around the image." },
+    { "id": "linen", "label": "Linen", "range": "1930/1945", "description": "Textured, linen-like paper with bright inks." },
+    { "id": "chrome", "label": "Photochrome / chrome", "range": "1939/..", "description": "Glossy color photographic cards." }
+  ]
+}

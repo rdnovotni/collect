@@ -1,0 +1,69 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "categories",
+  "title": "Collectible categories",
+  "description": "Values for a record's 'category'. Most will eventually have a matching profile.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "postcard",
+      "label": "Postcards"
+    },
+    {
+      "id": "sports-card",
+      "label": "Sports cards"
+    },
+    {
+      "id": "trading-card",
+      "label": "Trading card games"
+    },
+    {
+      "id": "non-sport-card",
+      "label": "Non-sport cards"
+    },
+    {
+      "id": "coin",
+      "label": "Coins"
+    },
+    {
+      "id": "banknote",
+      "label": "Banknotes"
+    },
+    {
+      "id": "token",
+      "label": "Tokens and medals"
+    },
+    {
+      "id": "stamp",
+      "label": "Stamps"
+    },
+    {
+      "id": "menu",
+      "label": "Menus"
+    },
+    {
+      "id": "matchbook",
+      "label": "Matchbooks"
+    },
+    {
+      "id": "label",
+      "label": "Labels (fruit crate, luggage, etc.)"
+    },
+    {
+      "id": "ticket",
+      "label": "Tickets and stubs"
+    },
+    {
+      "id": "pinback",
+      "label": "Pinback buttons"
+    },
+    {
+      "id": "ephemera",
+      "label": "Other paper ephemera"
+    },
+    {
+      "id": "other",
+      "label": "Other"
+    }
+  ]
+}

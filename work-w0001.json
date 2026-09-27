@@ -1,0 +1,28 @@
+{
+  "collect": "0.1",
+  "id": "example:work/w0001",
+  "layer": "work",
+  "category": "postcard",
+  "title": "Harbor view from the east pier",
+  "description": "A single photograph that the publisher reused on several cards over about a decade, cropped, flipped and recolored.",
+  "date": "1904~",
+  "agents": [
+    {
+      "role": "photographer",
+      "name": "Unknown"
+    }
+  ],
+  "places": [
+    {
+      "role": "depicted",
+      "name": "New York City",
+      "wikidata": "Q60"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Illustrative example record",
+      "note": "Fictional publisher; created to demonstrate the standard."
+    }
+  ]
+}

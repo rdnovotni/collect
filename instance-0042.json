@@ -1,0 +1,32 @@
+{
+  "collect": "0.1",
+  "id": "local:0042",
+  "layer": "instance",
+  "category": "postcard",
+  "instanceOf": "example:catalog/pc7421",
+  "status": "owned",
+  "condition": [
+    {
+      "scale": "postcard-basic",
+      "value": "VG",
+      "grader": "self",
+      "note": "Light corner wear, crease lower left."
+    }
+  ],
+  "acquired": {
+    "date": "2026-08",
+    "price": {
+      "amount": 4.5,
+      "currency": "USD"
+    },
+    "venue": "Flea market"
+  },
+  "storage": "Album 2, page 7",
+  "postcard:posted": true,
+  "postcard:postmark": {
+    "date": "1906-07-14",
+    "place": "Brooklyn, N.Y."
+  },
+  "postcard:postage": "1c green Franklin",
+  "postcard:message": "Arrived safe. The harbor is grand. Love to all — M."
+}

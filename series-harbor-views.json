@@ -1,0 +1,14 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/series-harbor-views",
+  "layer": "catalog",
+  "category": "postcard",
+  "title": "Harbor Views series",
+  "agents": [
+    {
+      "role": "publisher",
+      "name": "Example Publishing Co."
+    }
+  ],
+  "date": "1906/1914"
+}

@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/common.schema.json",
+  "title": "Collect v0.1 — common definitions",
+  "description": "Building blocks shared by every Collect record layer. See spec/core.md.",
+  "$defs": {
+    "id": {
+      "description": "A record identifier: a compact 'prefix:path' identifier or an absolute URI. The prefix 'local:' is reserved for identifiers that are only meaningful inside one person's collection.",
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:\\S+$"
+    },
+    "ref": {
+      "description": "A reference to another record by its id. The target may live in the same file, the same package, or somewhere else entirely.",
+      "$ref": "#/$defs/id"
+    },
+    "edtf": {
+      "description": "A date in Extended Date/Time Format (Library of Congress). Supports YYYY, YYYY-MM, YYYY-MM-DD, unspecified digits (190X, 19XX, 1908-XX), qualifiers (? uncertain, ~ approximate, % both) and intervals (1905/1915, 1907/.., ../1915).",
+      "type": "string",
+      "pattern": "^(?:(?:-?(?:\\d{4}|\\d{3}X|\\d{2}XX)(?:-(?:0[1-9]|1[0-2]|XX)(?:-(?:0[1-9]|[12]\\d|3[01]|XX))?)?[?~%]?)|(?:(?:-?(?:\\d{4}|\\d{3}X|\\d{2}XX)(?:-(?:0[1-9]|1[0-2]|XX)(?:-(?:0[1-9]|[12]\\d|3[01]|XX))?)?[?~%]?)|\\.\\.)?/(?:(?:-?(?:\\d{4}|\\d{3}X|\\d{2}XX)(?:-(?:0[1-9]|1[0-2]|XX)(?:-(?:0[1-9]|[12]\\d|3[01]|XX))?)?[?~%]?)|\\.\\.)?)$"
+    },
+    "slug": {
+      "description": "A lowercase vocabulary term such as 'publisher' or 'same-image-as'.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent": {
+      "description": "A person or organization involved with the item, and the role they played.",
+      "type": "object",
+      "required": ["role", "name"],
+      "properties": {
+        "role": { "$ref": "#/$defs/slug", "description": "See vocab/agent-roles.json. Unlisted roles are allowed but produce a validator warning." },
+        "name": { "$ref": "#/$defs/text" },
+        "id": { "$ref": "#/$defs/ref", "description": "Optional link to an agent record or an external identifier (e.g. wikidata:Q42)." },
+        "identifiers": { "type": "array", "items": { "$ref": "#/$defs/identifier" } },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "identifier": {
+      "description": "An identifier assigned by some numbering scheme. Recording a scheme's number is a cross-reference; it does not reproduce that scheme's catalog.",
+      "type": "object",
+      "required": ["scheme", "value"],
+      "properties": {
+        "scheme": { "$ref": "#/$defs/slug", "description": "See vocab/identifier-schemes.json." },
+        "value": { "$ref": "#/$defs/text" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "place": {
+      "description": "A place connected to the item. 'role' says how (depicted, published, postmarked, minted...).",
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "role": { "$ref": "#/$defs/slug", "description": "See vocab/place-roles.json. Defaults to 'depicted' when omitted." },
+        "name": { "$ref": "#/$defs/text" },
+        "wikidata": { "type": "string", "pattern": "^Q[1-9]\\d*$" },
+        "geonames": { "type": "string", "pattern": "^[1-9]\\d*$" },
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "rights": {
+      "description": "Rights status of an image. Required so that catalogs built on Collect can be redistributed safely.",
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "$ref": "#/$defs/slug", "description": "See vocab/rights-statuses.json." },
+        "license": { "type": "string", "description": "SPDX license id when status is 'licensed', e.g. CC-BY-4.0." },
+        "holder": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "image": {
+      "type": "object",
+      "required": ["rights"],
+      "anyOf": [{ "required": ["file"] }, { "required": ["url"] }],
+      "properties": {
+        "file": { "type": "string", "minLength": 1, "description": "Path relative to the record file or package root." },
+        "url": { "type": "string", "format": "uri" },
+        "side": { "$ref": "#/$defs/slug", "description": "front, back, detail, obverse, reverse, slab..." },
+        "caption": { "type": "string" },
+        "rights": { "$ref": "#/$defs/rights" }
+      },
+      "additionalProperties": false
+    },
+    "relationship": {
+      "type": "object",
+      "required": ["type", "target"],
+      "properties": {
+        "type": { "$ref": "#/$defs/slug", "description": "See vocab/relationship-types.json." },
+        "target": { "$ref": "#/$defs/ref" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "description": "Where a record's information came from.",
+      "type": "object",
+      "anyOf": [{ "required": ["title"] }, { "required": ["url"] }, { "required": ["citation"] }],
+      "properties": {
+        "title": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "citation": { "type": "string" },
+        "contributor": { "type": "string", "description": "Who asserted the information." },
+        "date": { "$ref": "#/$defs/edtf" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "price": {
+      "type": "object",
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": { "type": "number", "minimum": 0 },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$", "description": "ISO 4217 code, e.g. USD." }
+      },
+      "additionalProperties": false
+    },
+    "condition": {
+      "description": "A condition or grade on a named scale. Scales live in vocab/condition-scales/.",
+      "type": "object",
+      "required": ["scale", "value"],
+      "properties": {
+        "scale": { "$ref": "#/$defs/slug" },
+        "value": { "type": "string", "minLength": 1 },
+        "grader": { "type": "string", "description": "Who assigned it: 'self', a person, or a grading company." },
+        "certNumber": { "type": "string" },
+        "date": { "$ref": "#/$defs/edtf" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "meta": {
+      "description": "Housekeeping about the record itself (not the object it describes).",
+      "type": "object",
+      "properties": {
+        "created": { "type": "string", "format": "date-time" },
+        "modified": { "type": "string", "format": "date-time" },
+        "license": { "type": "string", "description": "SPDX license id for this record's data, e.g. CC0-1.0." },
+        "contributors": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "baseRecord": {
+      "description": "Properties every record may carry. Keys of the form 'profile:field' are profile extensions and are checked against the named profile by the validator.",
+      "type": "object",
+      "required": ["collect", "id", "layer"],
+      "properties": {
+        "collect": { "const": "0.1", "description": "Version of the Collect standard this record follows." },
+        "id": { "$ref": "#/$defs/id" },
+        "layer": { "enum": ["work", "catalog", "variant", "instance", "collection"] },
+        "category": { "$ref": "#/$defs/slug", "description": "See vocab/categories.json. Usually matches a profile id." },
+        "title": { "$ref": "#/$defs/text" },
+        "description": { "type": "string" },
+        "date": { "$ref": "#/$defs/edtf" },
+        "agents": { "type": "array", "items": { "$ref": "#/$defs/agent" } },
+        "identifiers": { "type": "array", "items": { "$ref": "#/$defs/identifier" } },
+        "places": { "type": "array", "items": { "$ref": "#/$defs/place" } },
+        "images": { "type": "array", "items": { "$ref": "#/$defs/image" } },
+        "relationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" } },
+        "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
+        "tags": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "notes": { "type": "string" },
+        "meta": { "$ref": "#/$defs/meta" }
+      },
+      "patternProperties": {
+        "^[a-z][a-z0-9-]*:[a-z][A-Za-z0-9]*$": {}
+      }
+    }
+  }
+}

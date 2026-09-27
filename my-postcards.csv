@@ -1,0 +1,4 @@
+id,layer,category,title,date,instanceOf,status,agent.publisher,identifier.publisher-series,place.depicted,condition.postcard-basic,acquired.date,acquired.price,acquired.currency,acquired.venue,storage,tags,image.front,image.rights,postcard:era,postcard:printProcess,postcard:posted,postcard:postmark.date,postcard:postmark.place
+local:0101,instance,postcard,Main Street looking north,1908/1912,,owned,Example Publishing Co.,5520,Springfield,VG,2026-09,3.00,USD,Antique mall,Box 1,main street; downtown,images/0101.jpg,public-domain,divided-back,halftone,yes,1911-03-02,Springfield
+local:0102,instance,postcard,The Harbor from East Pier,,example:catalog/pc7421,for-trade,,,,G,2026-09,1.50,USD,Antique mall,Box 1,,,,,,no,,
+local:0103,instance,postcard,Lakeside pavilion,1935~,,owned,Example Publishing Co.,L-204,Lake Example,NM,,,,,Box 2,linen; lakes,,,linen,offset,,,

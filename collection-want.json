@@ -1,0 +1,16 @@
+{
+  "collect": "0.1",
+  "id": "local:collections/want",
+  "layer": "collection",
+  "title": "Want list",
+  "purpose": "want",
+  "entries": [
+    {
+      "ref": "example:catalog/pc9102",
+      "note": "Any condition VG or better."
+    },
+    {
+      "ref": "example:variant/pc7421-green-back"
+    }
+  ]
+}

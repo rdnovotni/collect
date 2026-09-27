@@ -1,0 +1,10 @@
+{
+  "collect": "0.1",
+  "id": "example:variant/pc7421-green-back",
+  "layer": "variant",
+  "category": "postcard",
+  "variantOf": "example:catalog/pc7421",
+  "variantType": "back",
+  "title": "Green-ink back",
+  "description": "Back printed in green instead of black; publisher credit line reset."
+}

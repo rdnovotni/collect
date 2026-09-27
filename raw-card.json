@@ -1,0 +1,54 @@
+{
+  "$schema": "../../schema/0.1/vocabulary.schema.json",
+  "id": "raw-card",
+  "title": "Raw card condition",
+  "description": "Common descriptive grades for ungraded sports and trading cards, best to worst.",
+  "license": "CC0-1.0",
+  "ordered": true,
+  "terms": [
+    {
+      "id": "GM",
+      "label": "Gem mint"
+    },
+    {
+      "id": "M",
+      "label": "Mint"
+    },
+    {
+      "id": "NM-MT",
+      "label": "Near mint-mint"
+    },
+    {
+      "id": "NM",
+      "label": "Near mint"
+    },
+    {
+      "id": "EX-MT",
+      "label": "Excellent-mint"
+    },
+    {
+      "id": "EX",
+      "label": "Excellent"
+    },
+    {
+      "id": "VG-EX",
+      "label": "Very good-excellent"
+    },
+    {
+      "id": "VG",
+      "label": "Very good"
+    },
+    {
+      "id": "G",
+      "label": "Good"
+    },
+    {
+      "id": "FR",
+      "label": "Fair"
+    },
+    {
+      "id": "PR",
+      "label": "Poor"
+    }
+  ]
+}

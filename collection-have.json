@@ -1,0 +1,15 @@
+{
+  "collect": "0.1",
+  "id": "local:collections/postcards",
+  "layer": "collection",
+  "title": "My postcards",
+  "purpose": "have",
+  "entries": [
+    {
+      "ref": "local:0042"
+    },
+    {
+      "ref": "local:0043"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/rdnovotni/collect/main/schema/0.1/record.schema.json",
+  "title": "Collect v0.1 record",
+  "description": "Any Collect record. The 'layer' property selects which rules apply. See spec/core.md.",
+  "type": "object",
+  "required": ["collect", "id", "layer"],
+  "properties": {
+    "layer": { "enum": ["work", "catalog", "variant", "instance", "collection"] }
+  },
+  "allOf": [
+    { "if": { "properties": { "layer": { "const": "work" } } }, "then": { "$ref": "#/$defs/work" } },
+    { "if": { "properties": { "layer": { "const": "catalog" } } }, "then": { "$ref": "#/$defs/catalog" } },
+    { "if": { "properties": { "layer": { "const": "variant" } } }, "then": { "$ref": "#/$defs/variant" } },
+    { "if": { "properties": { "layer": { "const": "instance" } } }, "then": { "$ref": "#/$defs/instance" } },
+    { "if": { "properties": { "layer": { "const": "collection" } } }, "then": { "$ref": "#/$defs/collection" } }
+  ],
+  "$defs": {
+    "work": {
+      "description": "The abstract design or image, independent of any printing. One photograph reused across several cards is one work.",
+      "allOf": [{ "$ref": "common.schema.json#/$defs/baseRecord" }],
+      "unevaluatedProperties": false
+    },
+    "catalog": {
+      "description": "A specific published item: a card in a set, a postcard in a publisher's series, a coin type.",
+      "allOf": [{ "$ref": "common.schema.json#/$defs/baseRecord" }],
+      "properties": {
+        "work": { "$ref": "common.schema.json#/$defs/ref", "description": "The work this item reproduces, if known." },
+        "number": { "type": "string", "minLength": 1, "description": "The item's number within the set or series it is part of (see the part-of relationship)." }
+      },
+      "unevaluatedProperties": false
+    },
+    "variant": {
+      "description": "A printing, parallel, error, color or back variation of a catalog item.",
+      "allOf": [{ "$ref": "common.schema.json#/$defs/baseRecord" }],
+      "required": ["variantOf"],
+      "properties": {
+        "variantOf": { "$ref": "common.schema.json#/$defs/ref" },
+        "variantType": { "$ref": "common.schema.json#/$defs/slug", "description": "See vocab/variant-types.json." }
+      },
+      "unevaluatedProperties": false
+    },
+    "instance": {
+      "description": "One physical object that someone has. instanceOf is optional: an uncataloged object carries its own descriptive fields.",
+      "allOf": [{ "$ref": "common.schema.json#/$defs/baseRecord" }],
+      "properties": {
+        "instanceOf": { "$ref": "common.schema.json#/$defs/ref", "description": "A catalog item or variant." },
+        "quantity": { "type": "integer", "minimum": 1, "default": 1 },
+        "status": { "$ref": "common.schema.json#/$defs/slug", "description": "See vocab/instance-statuses.json." },
+        "condition": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/condition" } },
+        "acquired": {
+          "type": "object",
+          "description": "PRIVATE by default. How and when the object was obtained.",
+          "properties": {
+            "date": { "$ref": "common.schema.json#/$defs/edtf" },
+            "price": { "$ref": "common.schema.json#/$defs/price" },
+            "from": { "type": "string" },
+            "venue": { "type": "string" },
+            "note": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "provenance": {
+          "type": "array",
+          "description": "Ownership or custody history, oldest first.",
+          "items": {
+            "type": "object",
+            "required": ["event"],
+            "properties": {
+              "event": { "$ref": "common.schema.json#/$defs/slug", "description": "acquired, sold, gifted, graded, inherited, exhibited..." },
+              "date": { "$ref": "common.schema.json#/$defs/edtf" },
+              "party": { "type": "string" },
+              "note": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "storage": { "type": "string", "description": "PRIVATE by default. Where the object is kept (binder 3, page 12)." }
+      },
+      "unevaluatedProperties": false
+    },
+    "collection": {
+      "description": "A named list of instances or catalog items: a collection, want list, trade list or set checklist.",
+      "allOf": [{ "$ref": "common.schema.json#/$defs/baseRecord" }],
+      "required": ["entries"],
+      "properties": {
+        "owner": { "type": "string" },
+        "purpose": { "$ref": "common.schema.json#/$defs/slug", "description": "have, want, trade, checklist..." },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ref"],
+            "properties": {
+              "ref": { "$ref": "common.schema.json#/$defs/ref" },
+              "quantity": { "type": "integer", "minimum": 1 },
+              "note": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "unevaluatedProperties": false
+    }
+  }
+}

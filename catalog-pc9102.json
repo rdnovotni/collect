@@ -1,0 +1,36 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/pc9102",
+  "layer": "catalog",
+  "category": "postcard",
+  "title": "Evening on the Harbor",
+  "work": "example:work/w0001",
+  "description": "Same photograph as 7421, mirrored and recolored as a night scene.",
+  "date": "1910/1914",
+  "agents": [
+    {
+      "role": "publisher",
+      "name": "Example Publishing Co."
+    }
+  ],
+  "identifiers": [
+    {
+      "scheme": "publisher-series",
+      "value": "9102"
+    }
+  ],
+  "relationships": [
+    {
+      "type": "part-of",
+      "target": "example:catalog/series-harbor-views"
+    },
+    {
+      "type": "derived-from",
+      "target": "example:catalog/pc7421",
+      "note": "Mirrored and recolored."
+    }
+  ],
+  "postcard:era": "divided-back",
+  "postcard:format": "standard",
+  "postcard:printProcess": "halftone"
+}

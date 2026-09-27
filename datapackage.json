@@ -1,0 +1,28 @@
+{
+  "name": "example-postcards",
+  "title": "Example postcard package",
+  "description": "The records from examples/postcard bundled as a Collect package.",
+  "licenses": [
+    {
+      "name": "CC0-1.0",
+      "path": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ],
+  "collect": {
+    "version": "0.1",
+    "profiles": [
+      "postcard@0.1.0"
+    ],
+    "prefixes": {
+      "example": "https://example.org/collect/"
+    }
+  },
+  "resources": [
+    {
+      "name": "records",
+      "path": "records.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson"
+    }
+  ]
+}

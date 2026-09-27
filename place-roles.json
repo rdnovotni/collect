@@ -1,0 +1,37 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "place-roles",
+  "title": "Place roles",
+  "description": "How a place relates to an item.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "depicted",
+      "label": "Depicted"
+    },
+    {
+      "id": "published",
+      "label": "Place of publication"
+    },
+    {
+      "id": "printed",
+      "label": "Place of printing"
+    },
+    {
+      "id": "minted",
+      "label": "Place of minting"
+    },
+    {
+      "id": "issued",
+      "label": "Place of issue"
+    },
+    {
+      "id": "postmarked",
+      "label": "Postmarked"
+    },
+    {
+      "id": "found",
+      "label": "Where found or acquired"
+    }
+  ]
+}

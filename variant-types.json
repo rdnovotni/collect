@@ -1,0 +1,41 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "variant-types",
+  "title": "Variant types",
+  "description": "Kinds of variation of a catalog item.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "printing",
+      "label": "Printing / edition"
+    },
+    {
+      "id": "parallel",
+      "label": "Parallel"
+    },
+    {
+      "id": "error",
+      "label": "Error"
+    },
+    {
+      "id": "color",
+      "label": "Color variation"
+    },
+    {
+      "id": "back",
+      "label": "Back variation"
+    },
+    {
+      "id": "size",
+      "label": "Size variation"
+    },
+    {
+      "id": "paper",
+      "label": "Paper or stock"
+    },
+    {
+      "id": "other",
+      "label": "Other"
+    }
+  ]
+}

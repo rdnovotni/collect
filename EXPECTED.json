@@ -1,0 +1,15 @@
+{
+  "bad-date": "not a valid EDTF date",
+  "unknown-top-level-key": "is not a catalog field",
+  "missing-variantOf": "variantOf",
+  "bad-id": "not a valid id",
+  "profile-field-wrong-layer": "not allowed on layer",
+  "unknown-profile-field": "has no field",
+  "profile-field-bad-type": "is not of type 'boolean'",
+  "bad-condition-value": "is not a grade",
+  "licensed-without-license": "requires a 'license'",
+  "image-without-rights": "'rights' is a required property",
+  "wrong-layer-reference": "expected catalog or variant",
+  "duplicate-id": "duplicate id",
+  "bad-currency": "does not match"
+}

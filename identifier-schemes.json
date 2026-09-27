@@ -1,0 +1,61 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "identifier-schemes",
+  "title": "Identifier schemes",
+  "description": "Numbering schemes that identifiers may come from. Recording a number cross-references a scheme; it does not copy that scheme's catalog.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "publisher-series",
+      "label": "Publisher's own series or card number"
+    },
+    {
+      "id": "wikidata",
+      "label": "Wikidata item"
+    },
+    {
+      "id": "tcdb",
+      "label": "Trading Card Database"
+    },
+    {
+      "id": "numista",
+      "label": "Numista"
+    },
+    {
+      "id": "colnect",
+      "label": "Colnect"
+    },
+    {
+      "id": "hobbydb",
+      "label": "hobbyDB"
+    },
+    {
+      "id": "scott",
+      "label": "Scott catalogue number"
+    },
+    {
+      "id": "krause",
+      "label": "Krause (KM) number"
+    },
+    {
+      "id": "tuckdb",
+      "label": "TuckDB"
+    },
+    {
+      "id": "isbn",
+      "label": "ISBN"
+    },
+    {
+      "id": "upc",
+      "label": "UPC / EAN barcode"
+    },
+    {
+      "id": "grading-cert",
+      "label": "Grading certificate number"
+    },
+    {
+      "id": "local",
+      "label": "Collector's own inventory number"
+    }
+  ]
+}

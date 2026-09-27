@@ -1,0 +1,38 @@
+{
+  "$schema": "../../schema/0.1/vocabulary.schema.json",
+  "id": "postcard-basic",
+  "title": "Postcard condition (basic)",
+  "description": "Common descriptive grades for postcards, best to worst.",
+  "license": "CC0-1.0",
+  "ordered": true,
+  "terms": [
+    {
+      "id": "M",
+      "label": "Mint"
+    },
+    {
+      "id": "NM",
+      "label": "Near mint"
+    },
+    {
+      "id": "EX",
+      "label": "Excellent"
+    },
+    {
+      "id": "VG",
+      "label": "Very good"
+    },
+    {
+      "id": "G",
+      "label": "Good"
+    },
+    {
+      "id": "F",
+      "label": "Fair"
+    },
+    {
+      "id": "P",
+      "label": "Poor"
+    }
+  ]
+}

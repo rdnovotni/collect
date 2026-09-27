@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "collect-tools"
+dynamic = ["version"]
+description = "Reference tools for Collect, an open data standard for collectibles."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = ["jsonschema>=4.18", "referencing>=0.30"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python :: 3",
+  "Topic :: Database",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+collect = "collect_tools.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/rdnovotni/collect"
+Issues = "https://github.com/rdnovotni/collect/issues"
+
+[tool.hatch.version]
+path = "src/collect_tools/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/collect_tools"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schema" = "collect_tools/_data/schema"
+"vocab" = "collect_tools/_data/vocab"
+"profiles" = "collect_tools/_data/profiles"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

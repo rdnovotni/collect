@@ -1,0 +1,17 @@
+{
+  "id": "postcard-print-processes",
+  "title": "Postcard print processes",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "real-photo", "label": "Real photo (RPPC)", "description": "An actual photographic print on postcard stock." },
+    { "id": "collotype", "label": "Collotype" },
+    { "id": "halftone", "label": "Halftone" },
+    { "id": "photochrom", "label": "Photochrom", "description": "Color process used by Detroit Publishing and others." },
+    { "id": "chromolithograph", "label": "Chromolithograph" },
+    { "id": "lithograph", "label": "Lithograph" },
+    { "id": "offset", "label": "Offset" },
+    { "id": "hand-colored", "label": "Hand-colored" },
+    { "id": "digital", "label": "Digital" },
+    { "id": "other", "label": "Other" }
+  ]
+}

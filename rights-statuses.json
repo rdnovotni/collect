@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "rights-statuses",
+  "title": "Image rights statuses",
+  "description": "Rights status of an image attached to a record.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "public-domain",
+      "label": "Public domain"
+    },
+    {
+      "id": "licensed",
+      "label": "Openly licensed (give an SPDX id in 'license')"
+    },
+    {
+      "id": "permission-granted",
+      "label": "Used with the holder's permission"
+    },
+    {
+      "id": "all-rights-reserved",
+      "label": "All rights reserved"
+    },
+    {
+      "id": "unknown",
+      "label": "Unknown"
+    }
+  ]
+}

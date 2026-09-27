@@ -1,0 +1,13 @@
+[
+  {
+    "collect": "0.1",
+    "id": "t:w",
+    "layer": "work"
+  },
+  {
+    "collect": "0.1",
+    "id": "t:10",
+    "layer": "instance",
+    "instanceOf": "t:w"
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "$schema": "../schema/0.1/vocabulary.schema.json",
+  "id": "instance-statuses",
+  "title": "Instance statuses",
+  "description": "Where an owned object stands.",
+  "license": "CC0-1.0",
+  "terms": [
+    {
+      "id": "owned",
+      "label": "Owned"
+    },
+    {
+      "id": "for-trade",
+      "label": "For trade"
+    },
+    {
+      "id": "for-sale",
+      "label": "For sale"
+    },
+    {
+      "id": "sold",
+      "label": "Sold"
+    },
+    {
+      "id": "traded",
+      "label": "Traded away"
+    },
+    {
+      "id": "gifted",
+      "label": "Given away"
+    },
+    {
+      "id": "lost",
+      "label": "Lost"
+    }
+  ]
+}
