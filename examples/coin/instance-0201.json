@@ -1,0 +1,24 @@
+{
+  "collect": "0.1",
+  "id": "local:0201",
+  "layer": "instance",
+  "category": "coin",
+  "instanceOf": "example:catalog/1921-morgan-dollar",
+  "status": "owned",
+  "condition": [
+    {
+      "scale": "sheldon-70",
+      "value": "64",
+      "grader": "PCGS",
+      "certNumber": "45123456"
+    }
+  ],
+  "acquired": {
+    "date": "2023-11",
+    "price": { "amount": 55, "currency": "USD" },
+    "venue": "Local coin shop"
+  },
+  "storage": "Coin box 2, slot 14",
+  "coin:mint": "D",
+  "coin:variety": "VAM-3"
+}

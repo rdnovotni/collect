@@ -159,6 +159,18 @@
       "description": "'id' must be a compact 'prefix:path' identifier or a URI, not arbitrary text.",
       "input": { "collect": "0.1", "id": "no colon here", "layer": "work" },
       "expect": { "valid": false, "level": "error", "messageContains": "not a valid id" }
+    },
+    {
+      "id": "coin-mintage-wrong-layer",
+      "description": "The 'coin' profile's 'mintage' field is only allowed on 'catalog'/'variant', not 'instance'.",
+      "input": { "collect": "0.1", "id": "t:13", "layer": "instance", "category": "coin", "coin:mintage": 44690000 },
+      "expect": { "valid": false, "level": "error", "messageContains": "not allowed on layer" }
+    },
+    {
+      "id": "stamp-postmark-wrong-layer",
+      "description": "The 'stamp' profile's 'postmark' field is only allowed on 'instance', not 'catalog'.",
+      "input": { "collect": "0.1", "id": "t:14", "layer": "catalog", "category": "stamp", "stamp:postmark": { "place": "Chicago, Ill." } },
+      "expect": { "valid": false, "level": "error", "messageContains": "not allowed on layer" }
     }
   ]
 }

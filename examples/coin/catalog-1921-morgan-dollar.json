@@ -1,0 +1,37 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/1921-morgan-dollar",
+  "layer": "catalog",
+  "category": "coin",
+  "title": "Morgan Dollar",
+  "number": "1921",
+  "date": "1921",
+  "agents": [
+    { "role": "designer", "name": "George T. Morgan" },
+    { "role": "mint", "name": "United States Mint" }
+  ],
+  "identifiers": [
+    { "scheme": "krause", "value": "KM# 110" }
+  ],
+  "places": [
+    { "role": "minted", "name": "United States" }
+  ],
+  "images": [
+    {
+      "file": "images/1921-morgan-dollar-obverse.jpg",
+      "side": "obverse",
+      "rights": { "status": "public-domain", "note": "US coin design, work of the US federal government." }
+    },
+    {
+      "file": "images/1921-morgan-dollar-reverse.jpg",
+      "side": "reverse",
+      "rights": { "status": "public-domain", "note": "US coin design, work of the US federal government." }
+    }
+  ],
+  "coin:denomination": "1 dollar",
+  "coin:composition": "silver",
+  "coin:mintage": 44690000,
+  "meta": {
+    "license": "CC0-1.0"
+  }
+}

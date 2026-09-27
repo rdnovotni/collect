@@ -17,7 +17,7 @@ Thanks for helping. Collect is early, so the most valuable contributions are rea
 4. Run the checks:
    ```bash
    collect check-standard
-   collect validate examples/postcard examples/sports-card examples/package
+   collect validate examples/postcard examples/sports-card examples/coin examples/stamp examples/package
    pytest
    ```
 5. Add a line to `CHANGELOG.md` under "Unreleased" and open a pull request.
