@@ -8,7 +8,7 @@ from pathlib import Path
 
 from . import __version__, SPEC_VERSION
 from .csvmap import CsvError, csv_to_records, records_to_csv
-from .validate import check_standard, issues_to_json, load_records, validate_records
+from .validate import check_standard, issues_to_json, load_records, to_sarif, validate_records
 
 
 def _report(issues, fmt: str, strict: bool, count: int | None = None) -> int:
@@ -16,6 +16,8 @@ def _report(issues, fmt: str, strict: bool, count: int | None = None) -> int:
     warnings = [i for i in issues if i.level == "warning"]
     if fmt == "json":
         print(issues_to_json(issues))
+    elif fmt == "sarif":
+        print(to_sarif(issues))
     else:
         for i in issues:
             print(i)
@@ -92,12 +94,12 @@ def main(argv: list[str] | None = None) -> int:
     v = sub.add_parser("validate", help="validate record files, JSONL files or package directories")
     v.add_argument("paths", nargs="+")
     v.add_argument("--strict", action="store_true", help="treat warnings as errors")
-    v.add_argument("--format", choices=["text", "json"], default="text")
+    v.add_argument("--format", choices=["text", "json", "sarif"], default="text")
     v.set_defaults(func=cmd_validate)
 
     s = sub.add_parser("check-standard", help="validate the standard's own profiles and vocabularies")
     s.add_argument("--strict", action="store_true")
-    s.add_argument("--format", choices=["text", "json"], default="text")
+    s.add_argument("--format", choices=["text", "json", "sarif"], default="text")
     s.set_defaults(func=cmd_check_standard)
 
     c = sub.add_parser("csv2json", help="convert a CSV spreadsheet to Collect records")

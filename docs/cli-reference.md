@@ -10,7 +10,7 @@ collect <command> [options]
 ## `collect validate`
 
 ```
-collect validate <path> [<path> ...] [--strict] [--format text|json]
+collect validate <path> [<path> ...] [--strict] [--format text|json|sarif]
 ```
 
 Validates records against the core schema, their profile(s), the standard's vocabularies, and cross-record references (see [architecture.md §9](architecture.md#9-why-the-validator-is-a-three-layer-check-not-a-single-json-schema)).
@@ -26,7 +26,7 @@ Validates records against the core schema, their profile(s), the standard's voca
 | Flag | Effect |
 |---|---|
 | `--strict` | Treat warnings as errors (affects the exit code, not what's printed). |
-| `--format text\|json` | `text` (default) prints one line per issue plus a summary; `json` prints a JSON array of issue objects (see below) and suppresses the summary line. |
+| `--format text\|json\|sarif` | `text` (default) prints one line per issue plus a summary; `json` prints a JSON array of issue objects (see below) and suppresses the summary line; `sarif` prints a minimal [SARIF 2.1.0](https://sarifweb.azurewebsites.net/) log for CI problem-matchers and inline PR annotations. |
 
 **Exit codes:** `0` no errors (and, with `--strict`, no warnings); `1` errors found (or warnings, under `--strict`); `2` a path could not be read (bad JSON, missing file).
 
@@ -42,7 +42,7 @@ collect validate my-collection/ --format json > report.json
 ## `collect check-standard`
 
 ```
-collect check-standard [--strict] [--format text|json]
+collect check-standard [--strict] [--format text|json|sarif]
 ```
 
 Validates the standard's *own* files — every `profiles/*/*/profile.json` against `schema/0.1/profile.schema.json` (plus that each field's own `schema` is itself a valid JSON Schema, and that any `vocabulary` path it names actually exists), and every file under `vocab/` and each profile's `vocab/` folder against `schema/0.1/vocabulary.schema.json` (plus duplicate-term-id detection). Run this after editing a profile or vocabulary, before running `collect validate` against records that use it.
@@ -105,6 +105,19 @@ Both `validate` and `check-standard` can emit issues as JSON — useful for feed
 | `message` | Human-readable description. |
 
 The text format prints the same information as `LEVEL   location [record] at path: message`.
+
+## SARIF output (`--format sarif`)
+
+Both `validate` and `check-standard` can also emit a minimal [SARIF 2.1.0](https://sarifweb.azurewebsites.net/) log: one `run`, a `collect` tool driver, and one `result` per issue (`level` mapped from `error`/`warning`, `message.text` from the issue's message, and a `physicalLocation.artifactLocation.uri` derived from `location` with any trailing array index or `.jsonl` line number stripped off). In GitHub Actions, upload it with [`github/codeql-action/upload-sarif`](https://github.com/github/codeql-action/tree/main/upload-sarif) to get inline PR annotations instead of plain log lines:
+
+```yaml
+- name: Validate
+  run: collect validate --format sarif my-collection/ > collect.sarif
+  continue-on-error: true
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: collect.sarif
+```
 
 ## Using it in CI
 

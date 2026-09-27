@@ -37,6 +37,16 @@ def test_check_standard_json_format(capsys):
     assert json.loads(capsys.readouterr().out) == []
 
 
+def test_validate_sarif_format(capsys):
+    assert main(["validate", "--format", "sarif", str(ROOT / "tests/fixtures/invalid/bad-date.json")]) == 1
+    sarif = json.loads(capsys.readouterr().out)
+    assert sarif["version"] == "2.1.0"
+    assert sarif["runs"][0]["tool"]["driver"]["name"] == "collect"
+    result = sarif["runs"][0]["results"][0]
+    assert result["level"] == "error"
+    assert "EDTF" in result["message"]["text"]
+
+
 def test_validate_missing_path_reports_error_and_exits(capsys):
     missing = ROOT / "tests/fixtures/does-not-exist.json"
     assert main(["validate", str(missing)]) == 2
