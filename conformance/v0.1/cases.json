@@ -1,0 +1,164 @@
+{
+  "version": "0.1",
+  "cases": [
+    {
+      "id": "valid-work-record",
+      "description": "A minimal, self-contained 'work' record with no cross-references.",
+      "input": {
+        "collect": "0.1",
+        "id": "example:work/w0001",
+        "layer": "work",
+        "category": "postcard",
+        "title": "Harbor view from the east pier",
+        "description": "A single photograph reused on several cards over about a decade.",
+        "date": "1904~",
+        "agents": [{ "role": "photographer", "name": "Unknown" }],
+        "places": [{ "role": "depicted", "name": "New York City", "wikidata": "Q60" }]
+      },
+      "expect": { "valid": true }
+    },
+    {
+      "id": "valid-uncataloged-instance-with-profile-fields",
+      "description": "An 'instance' record describing an object not in any catalog, using core fields plus namespaced 'postcard:' profile fields.",
+      "input": {
+        "collect": "0.1",
+        "id": "local:0043",
+        "layer": "instance",
+        "category": "postcard",
+        "title": "Family on porch of a farmhouse",
+        "date": "1910/1918?",
+        "status": "for-trade",
+        "condition": [{ "scale": "postcard-basic", "value": "EX", "grader": "self" }],
+        "images": [
+          { "file": "images/local-0043-front.jpg", "side": "front", "rights": { "status": "public-domain" } }
+        ],
+        "postcard:printProcess": "real-photo",
+        "postcard:stampBox": "AZO",
+        "postcard:posted": false
+      },
+      "expect": { "valid": true }
+    },
+    {
+      "id": "valid-catalog-record-no-cross-references",
+      "description": "A 'catalog' record from a different profile (sports-card) with no relationships or work reference, so it validates cleanly on its own.",
+      "input": {
+        "collect": "0.1",
+        "id": "example:catalog/2023-topps-333",
+        "layer": "catalog",
+        "category": "sports-card",
+        "title": "Alex Rivera",
+        "number": "333",
+        "date": "2023",
+        "agents": [
+          { "role": "subject", "name": "Alex Rivera" },
+          { "role": "manufacturer", "name": "Example Trading Card Co." }
+        ],
+        "images": [
+          { "file": "images/2023-topps-333-front.jpg", "side": "front", "rights": { "status": "all-rights-reserved" } }
+        ],
+        "sports-card:set": "2023 Example Series 2",
+        "sports-card:rookie": true
+      },
+      "expect": { "valid": true }
+    },
+    {
+      "id": "bad-date",
+      "description": "'date' must be a valid EDTF string, not free text.",
+      "input": { "collect": "0.1", "id": "t:1", "layer": "catalog", "date": "circa 1905" },
+      "expect": { "valid": false, "level": "error", "messageContains": "not a valid EDTF date" }
+    },
+    {
+      "id": "unknown-top-level-key",
+      "description": "A plain top-level key that is neither a core field nor a namespaced profile field ('profileId:fieldName') is an error.",
+      "input": { "collect": "0.1", "id": "t:2", "layer": "catalog", "color": "blue" },
+      "expect": { "valid": false, "level": "error", "messageContains": "is not a catalog field" }
+    },
+    {
+      "id": "missing-variantOf",
+      "description": "A 'variant' record must name its parent catalog item in 'variantOf'.",
+      "input": { "collect": "0.1", "id": "t:3", "layer": "variant" },
+      "expect": { "valid": false, "level": "error", "messageContains": "variantOf" }
+    },
+    {
+      "id": "profile-field-wrong-layer",
+      "description": "A profile field used on a layer it isn't declared for ('postcard:postmark' is instance-only).",
+      "input": { "collect": "0.1", "id": "t:4", "layer": "catalog", "postcard:postmark": { "date": "1906" } },
+      "expect": { "valid": false, "level": "error", "messageContains": "not allowed on layer" }
+    },
+    {
+      "id": "unknown-profile-field",
+      "description": "A namespaced key referring to a field the named profile doesn't define.",
+      "input": { "collect": "0.1", "id": "t:5", "layer": "catalog", "postcard:backColor": "green" },
+      "expect": { "valid": false, "level": "error", "messageContains": "has no field" }
+    },
+    {
+      "id": "profile-field-bad-type",
+      "description": "A profile field's value must match that field's declared JSON Schema type.",
+      "input": { "collect": "0.1", "id": "t:6", "layer": "instance", "postcard:posted": "yes" },
+      "expect": { "valid": false, "level": "error", "messageContains": "is not of type 'boolean'" }
+    },
+    {
+      "id": "bad-condition-value",
+      "description": "A condition value not present on its named scale is an error (the scale itself is known).",
+      "input": {
+        "collect": "0.1",
+        "id": "t:7",
+        "layer": "instance",
+        "condition": [{ "scale": "postcard-basic", "value": "Awesome" }]
+      },
+      "expect": { "valid": false, "level": "error", "messageContains": "is not a grade" }
+    },
+    {
+      "id": "licensed-without-license",
+      "description": "An image with rights.status 'licensed' must give an SPDX license id.",
+      "input": {
+        "collect": "0.1",
+        "id": "t:8",
+        "layer": "catalog",
+        "images": [{ "file": "a.jpg", "rights": { "status": "licensed" } }]
+      },
+      "expect": { "valid": false, "level": "error", "messageContains": "requires a 'license'" }
+    },
+    {
+      "id": "image-without-rights",
+      "description": "Every image must carry a 'rights' object.",
+      "input": { "collect": "0.1", "id": "t:9", "layer": "catalog", "images": [{ "file": "a.jpg" }] },
+      "expect": { "valid": false, "level": "error", "messageContains": "'rights' is a required property" }
+    },
+    {
+      "id": "wrong-layer-reference",
+      "description": "'instanceOf' must point at a 'catalog' or 'variant' record, not a 'work'. Multi-record input: both records are checked together so the reference resolves.",
+      "input": [
+        { "collect": "0.1", "id": "t:w", "layer": "work" },
+        { "collect": "0.1", "id": "t:10", "layer": "instance", "instanceOf": "t:w" }
+      ],
+      "expect": { "valid": false, "level": "error", "messageContains": "expected catalog or variant" }
+    },
+    {
+      "id": "duplicate-id",
+      "description": "Two records in the same checked set must not share an id. Multi-record input.",
+      "input": [
+        { "collect": "0.1", "id": "t:11", "layer": "work" },
+        { "collect": "0.1", "id": "t:11", "layer": "work" }
+      ],
+      "expect": { "valid": false, "level": "error", "messageContains": "duplicate id" }
+    },
+    {
+      "id": "bad-currency",
+      "description": "'acquired.price.currency' must be an ISO 4217 code, not a currency name.",
+      "input": {
+        "collect": "0.1",
+        "id": "t:12",
+        "layer": "instance",
+        "acquired": { "price": { "amount": 3, "currency": "dollars" } }
+      },
+      "expect": { "valid": false, "level": "error", "messageContains": "does not match" }
+    },
+    {
+      "id": "bad-id",
+      "description": "'id' must be a compact 'prefix:path' identifier or a URI, not arbitrary text.",
+      "input": { "collect": "0.1", "id": "no colon here", "layer": "work" },
+      "expect": { "valid": false, "level": "error", "messageContains": "not a valid id" }
+    }
+  ]
+}
