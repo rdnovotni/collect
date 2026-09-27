@@ -48,6 +48,8 @@ Highlights of the design:
 
 ## Documentation
 
+A browsable version of this documentation will be published to <https://rdnovotni.github.io/collect/> once GitHub Pages is enabled for the repository; until then, read it here:
+
 - [`docs/getting-started.md`](docs/getting-started.md) — install the tools and write, validate, and convert your first records.
 - [`docs/architecture.md`](docs/architecture.md) — why the format is shaped this way, and what alternatives were rejected.
 - [`docs/schema-reference.md`](docs/schema-reference.md) — every field, on every layer, in one place.
