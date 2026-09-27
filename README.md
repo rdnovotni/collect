@@ -60,7 +60,7 @@ Highlights of the design:
 ```
 spec/        The specification (start with spec/core.md)
 schema/      JSON Schemas for records, profiles and vocabularies
-profiles/    Category profiles (postcard is the first)
+profiles/    Category profiles (postcard, sports-card)
 vocab/       Shared vocabularies: roles, schemes, statuses, condition scales
 context/     Experimental JSON-LD context for linked-data use
 examples/    Example records, a package, and a CSV
@@ -75,7 +75,7 @@ The reference tools require Python 3.10+.
 ```bash
 pip install -e ".[dev]"
 
-collect validate examples/postcard          # validate records, files, or packages
+collect validate examples/postcard examples/sports-card   # validate records, files, or packages
 collect csv2json my-postcards.csv -o my-postcards.json
 collect json2csv examples/postcard -o out.csv
 collect check-standard                      # validate the profiles and vocabularies themselves
@@ -86,8 +86,8 @@ The validator checks structure, dates, profile fields, condition grades, and ref
 
 ## Roadmap
 
-- **v0.1** — Core schema, postcard profile, CSV mapping, packages, validator *(this release)*
-- **v0.2** — Sports card profile; importers for spreadsheet exports from existing card and coin sites
+- **v0.1** — Core schema, postcard and sports-card profiles, CSV mapping, packages, validator *(this release)*
+- **v0.2** — Importers for spreadsheet exports from existing card and coin sites; `collect-tools` on PyPI
 - **v0.3** — A simple reference collection manager, then an open postcard catalog built on Collect
 
 See [ROADMAP.md](ROADMAP.md) for the full plan — core spec, profiles, tooling, ecosystem, quality, docs, and governance — and how to help move any of it forward.

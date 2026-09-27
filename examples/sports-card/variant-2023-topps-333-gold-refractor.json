@@ -1,0 +1,16 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/2023-topps-333-gold-refractor",
+  "layer": "variant",
+  "category": "sports-card",
+  "title": "Alex Rivera — Gold Refractor",
+  "variantOf": "example:catalog/2023-topps-333",
+  "variantType": "parallel",
+  "sports-card:set": "2023 Example Series 2",
+  "sports-card:parallel": "Gold Refractor",
+  "sports-card:printRun": 50,
+  "sports-card:rookie": true,
+  "meta": {
+    "license": "CC0-1.0"
+  }
+}

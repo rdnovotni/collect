@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schema/0.1/vocabulary.schema.json",
+  "id": "relic-materials",
+  "title": "Relic materials",
+  "description": "Kinds of game-used or player-worn material embedded in a relic (memorabilia) card.",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "jersey", "label": "Jersey" },
+    { "id": "patch", "label": "Patch", "description": "A multi-color swatch, often from a logo, number or letter." },
+    { "id": "bat", "label": "Bat" },
+    { "id": "ball", "label": "Ball" },
+    { "id": "glove", "label": "Glove" },
+    { "id": "net", "label": "Net" },
+    { "id": "other", "label": "Other" }
+  ]
+}

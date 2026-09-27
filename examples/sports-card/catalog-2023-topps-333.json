@@ -1,0 +1,29 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/2023-topps-333",
+  "layer": "catalog",
+  "category": "sports-card",
+  "title": "Alex Rivera",
+  "number": "333",
+  "date": "2023",
+  "agents": [
+    { "role": "subject", "name": "Alex Rivera" },
+    { "role": "team", "name": "Example City Comets" },
+    { "role": "manufacturer", "name": "Example Trading Card Co." }
+  ],
+  "identifiers": [
+    { "scheme": "tcdb", "value": "123456" }
+  ],
+  "images": [
+    {
+      "file": "images/2023-topps-333-front.jpg",
+      "side": "front",
+      "rights": { "status": "all-rights-reserved" }
+    }
+  ],
+  "sports-card:set": "2023 Example Series 2",
+  "sports-card:rookie": true,
+  "meta": {
+    "license": "CC0-1.0"
+  }
+}

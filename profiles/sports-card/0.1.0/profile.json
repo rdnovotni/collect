@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../schema/0.1/profile.schema.json",
+  "id": "sports-card",
+  "version": "0.1.0",
+  "collect": "0.1",
+  "title": "Sports cards",
+  "description": "Fields for sports and other athlete trading cards. Fields allowed on 'catalog' are also allowed on 'instance' so that uncataloged cards can be described fully. The player and team are ordinary core 'agents' (roles 'subject' and 'team'); the card's position within its set is the core 'number' field on the catalog layer.",
+  "status": "draft",
+  "categories": ["sports-card"],
+  "fields": {
+    "set": {
+      "description": "Name of the set or product the card belongs to, e.g. '2023 Topps Chrome'. For a fully modeled checklist, model the set itself as a 'catalog' record and link with a 'part-of' relationship instead.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "parallel": {
+      "description": "Name of the parallel or insert, as printed or commonly known, e.g. 'Gold Refractor', 'Prizm Silver'. Parallel names are too numerous and manufacturer-specific for a shared vocabulary.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "printRun": {
+      "description": "Total number of copies made of this parallel, i.e. the denominator of a serial number like '7/25'.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "integer", "minimum": 1 }
+    },
+    "serialNumber": {
+      "description": "This specific card's number within its print run, i.e. the numerator of a serial number like '7/25'.",
+      "layers": ["instance"],
+      "schema": { "type": "integer", "minimum": 1 }
+    },
+    "rookie": {
+      "description": "Whether the card is designated a rookie card (RC) for the depicted player.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "boolean" }
+    },
+    "autographType": {
+      "description": "Present when the card carries a player autograph as part of its design or was later signed. How the signature was applied.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/autograph-types.json"
+    },
+    "autographInscription": {
+      "description": "Transcription of any inscription added alongside the signature (e.g. 'HOF 2020').",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "relicMaterial": {
+      "description": "Present when the card includes a piece of game-used or player-worn memorabilia. What kind of material is embedded.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/relic-materials.json"
+    },
+    "relicDescription": {
+      "description": "Free description of the relic piece, e.g. 'multi-color patch' or 'pinstripe swatch'.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    }
+  }
+}

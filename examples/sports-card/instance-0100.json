@@ -1,0 +1,24 @@
+{
+  "collect": "0.1",
+  "id": "local:0100",
+  "layer": "instance",
+  "category": "sports-card",
+  "instanceOf": "example:catalog/2023-topps-333-gold-refractor",
+  "status": "owned",
+  "condition": [
+    {
+      "scale": "ten-point",
+      "value": "9.5",
+      "grader": "PSA",
+      "certNumber": "88112233"
+    }
+  ],
+  "acquired": {
+    "date": "2024-03",
+    "price": { "amount": 45, "currency": "USD" },
+    "venue": "Online auction"
+  },
+  "storage": "Graded card box 1",
+  "sports-card:serialNumber": 12,
+  "sports-card:rookie": true
+}

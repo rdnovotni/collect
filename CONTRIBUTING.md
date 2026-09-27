@@ -17,7 +17,7 @@ Thanks for helping. Collect is early, so the most valuable contributions are rea
 4. Run the checks:
    ```bash
    collect check-standard
-   collect validate examples/postcard examples/package
+   collect validate examples/postcard examples/sports-card examples/package
    pytest
    ```
 5. Add a line to `CHANGELOG.md` under "Unreleased" and open a pull request.
@@ -28,6 +28,13 @@ Thanks for helping. Collect is early, so the most valuable contributions are rea
 - The spec uses semantic versioning. Before 1.0, minor versions may break compatibility; each break is listed in the changelog.
 - Profiles are versioned separately from the core.
 - Prefer adding to vocabularies and profiles over changing the core. The core should stay small.
+
+## Releasing (maintainers)
+
+`collect-tools` publishes to PyPI via [`.github/workflows/release.yml`](.github/workflows/release.yml) using [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC) — no API token is stored in the repository. One-time setup, then per-release steps:
+
+- **One-time:** create the `collect-tools` project on PyPI (or reserve the name) and add this repository's `release.yml` workflow as a trusted publisher for it, with environment name `pypi`.
+- **Per release:** bump `__version__` in [`src/collect_tools/__init__.py`](src/collect_tools/__init__.py), add a dated section to `CHANGELOG.md`, then publish a GitHub Release (tag `vX.Y.Z`). The workflow builds the sdist and wheel, re-runs `check-standard`, `validate` and `pytest`, and uploads to PyPI only after those pass.
 
 ## Licensing of contributions
 

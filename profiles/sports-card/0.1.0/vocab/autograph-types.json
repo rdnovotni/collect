@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../schema/0.1/vocabulary.schema.json",
+  "id": "autograph-types",
+  "title": "Autograph types",
+  "description": "How a signature was applied to an autographed card.",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "on-card", "label": "On-card", "description": "Signed directly on the card stock." },
+    { "id": "sticker", "label": "Sticker auto", "description": "Signed on a separate sticker affixed to the card." },
+    { "id": "cut", "label": "Cut signature", "description": "A signature cut from another document or item and embedded in the card." },
+    { "id": "buyback", "label": "Buyback", "description": "A previously issued card bought back by the manufacturer, signed, and reinserted into a later product." },
+    { "id": "other", "label": "Other" }
+  ]
+}
