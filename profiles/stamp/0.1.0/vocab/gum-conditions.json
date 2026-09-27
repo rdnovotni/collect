@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schema/0.1/vocabulary.schema.json",
+  "id": "gum-conditions",
+  "title": "Stamp gum conditions",
+  "description": "Condition of the original gum on the back of a stamp, best to worst.",
+  "license": "CC0-1.0",
+  "ordered": true,
+  "terms": [
+    { "id": "mint", "label": "Mint, never hinged (full original gum, no hinge trace)" },
+    { "id": "lightly-hinged", "label": "Lightly hinged" },
+    { "id": "hinged", "label": "Hinged" },
+    { "id": "regummed", "label": "Regummed" },
+    { "id": "none", "label": "No gum (e.g. a used stamp)" },
+    { "id": "other", "label": "Other" }
+  ]
+}

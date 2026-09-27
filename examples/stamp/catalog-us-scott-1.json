@@ -1,0 +1,29 @@
+{
+  "collect": "0.1",
+  "id": "example:catalog/us-scott-1",
+  "layer": "catalog",
+  "category": "stamp",
+  "title": "Benjamin Franklin, 5c",
+  "number": "1",
+  "date": "1847",
+  "agents": [
+    { "role": "subject", "name": "Benjamin Franklin" },
+    { "role": "issuer", "name": "United States Post Office Department" }
+  ],
+  "identifiers": [
+    { "scheme": "scott", "value": "1" }
+  ],
+  "places": [
+    { "role": "issued", "name": "United States" }
+  ],
+  "images": [
+    {
+      "file": "images/us-scott-1-front.jpg",
+      "side": "front",
+      "rights": { "status": "public-domain" }
+    }
+  ],
+  "meta": {
+    "license": "CC0-1.0"
+  }
+}

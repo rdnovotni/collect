@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../../schema/0.1/vocabulary.schema.json",
+  "id": "compositions",
+  "title": "Coin compositions",
+  "description": "Common metals and alloys struck coins are made of.",
+  "license": "CC0-1.0",
+  "terms": [
+    { "id": "copper", "label": "Copper" },
+    { "id": "bronze", "label": "Bronze" },
+    { "id": "brass", "label": "Brass" },
+    { "id": "silver", "label": "Silver" },
+    { "id": "gold", "label": "Gold" },
+    { "id": "nickel", "label": "Nickel" },
+    { "id": "copper-nickel", "label": "Copper-nickel" },
+    { "id": "steel", "label": "Steel" },
+    { "id": "zinc", "label": "Zinc" },
+    { "id": "aluminum", "label": "Aluminum" },
+    { "id": "clad", "label": "Copper-nickel clad" },
+    { "id": "bimetallic", "label": "Bimetallic (two distinct metals in one coin)" },
+    { "id": "other", "label": "Other" }
+  ]
+}

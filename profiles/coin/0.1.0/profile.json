@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../schema/0.1/profile.schema.json",
+  "id": "coin",
+  "version": "0.1.0",
+  "collect": "0.1",
+  "title": "Coins",
+  "description": "Fields for struck coins. Fields allowed on 'catalog' are also allowed on 'instance' so that uncataloged coins can be described fully. Grading uses the core 'condition' field; see vocab/condition-scales/sheldon-70.json for the numismatic 70-point scale.",
+  "status": "draft",
+  "categories": ["coin"],
+  "fields": {
+    "mint": {
+      "description": "The mint that struck the coin, as commonly abbreviated (e.g. 'P', 'D', 'S', 'O', 'CC') or named for issuers outside the US Mint system. Mint marks and mint names vary too much by country and era for a shared vocabulary.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "denomination": {
+      "description": "Face value as commonly written, e.g. '25 cents', '1 dollar', '2 euro'.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    },
+    "composition": {
+      "description": "The metal or alloy the coin is struck in.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string" },
+      "vocabulary": "vocab/compositions.json"
+    },
+    "mintage": {
+      "description": "Total number of coins struck for this catalog item (this date, mint and type combination), when known.",
+      "layers": ["catalog", "variant"],
+      "schema": { "type": "integer", "minimum": 0 }
+    },
+    "variety": {
+      "description": "Die variety or notable die state, as commonly cataloged (e.g. 'doubled die obverse', 'large date'). Varieties are too numerous and series-specific for a shared vocabulary.",
+      "layers": ["catalog", "variant", "instance"],
+      "schema": { "type": "string", "minLength": 1 }
+    }
+  }
+}

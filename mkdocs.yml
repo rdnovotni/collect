@@ -1,0 +1,86 @@
+site_name: Collect
+site_description: An open data standard for cataloging collectibles.
+site_url: https://rdnovotni.github.io/collect/
+repo_url: https://github.com/rdnovotni/collect
+repo_name: rdnovotni/collect
+edit_uri: edit/main/
+
+docs_dir: docs
+
+nav:
+  - Home: index.md
+  - Documentation:
+      - Overview: README.md
+      - Getting started: getting-started.md
+      - Architecture & design rationale: architecture.md
+      - Schema reference: schema-reference.md
+      - CLI reference: cli-reference.md
+      - FAQ: faq.md
+  - Specification:
+      - Core: spec/core.md
+      - Profiles: spec/profiles.md
+      - Packages: spec/packages.md
+      - CSV mapping: spec/csv.md
+  - Schema & profile browser:
+      - Overview: schema-browser/index.md
+      - Core schemas:
+          - Common definitions: schema-browser/schema/common.schema.md
+          - Record: schema-browser/schema/record.schema.md
+          - Profile definition: schema-browser/schema/profile.schema.md
+          - Vocabulary: schema-browser/schema/vocabulary.schema.md
+      - Profiles: schema-browser/profiles/index.md
+  - Roadmap: ROADMAP.md
+  - Contributing: CONTRIBUTING.md
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs-site/scripts/build_schema_pages.py
+
+# The existing docs/spec Markdown pre-dates this site and links to repo
+# paths outside docs_dir (vocab/, examples/, src/, schema/*.json, LICENSE*)
+# using paths that are correct when browsing the repo on GitHub but that
+# this (intentionally modest) site doesn't mirror. Those are expected and
+# non-fatal; `nav` itself is still validated strictly so our own nav stays
+# correct.
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: warn
+  links:
+    absolute_links: info
+    unrecognized_links: info
+    anchors: info
+    not_found: info

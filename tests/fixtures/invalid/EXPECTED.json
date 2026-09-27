@@ -11,5 +11,7 @@
   "image-without-rights": "'rights' is a required property",
   "wrong-layer-reference": "expected catalog or variant",
   "duplicate-id": "duplicate id",
-  "bad-currency": "does not match"
+  "bad-currency": "does not match",
+  "coin-mintage-wrong-layer": "not allowed on layer",
+  "stamp-postmark-wrong-layer": "not allowed on layer"
 }

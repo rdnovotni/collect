@@ -17,7 +17,7 @@ Thanks for helping. Collect is early, so the most valuable contributions are rea
 4. Run the checks:
    ```bash
    collect check-standard
-   collect validate examples/postcard examples/sports-card examples/package
+   collect validate examples/postcard examples/sports-card examples/coin examples/stamp examples/package
    pytest
    ```
 5. Add a line to `CHANGELOG.md` under "Unreleased" and open a pull request.
@@ -28,6 +28,14 @@ Thanks for helping. Collect is early, so the most valuable contributions are rea
 - The spec uses semantic versioning. Before 1.0, minor versions may break compatibility; each break is listed in the changelog.
 - Profiles are versioned separately from the core.
 - Prefer adding to vocabularies and profiles over changing the core. The core should stay small.
+
+## Decision process
+
+Collect has one maintainer today, who makes the final call on what merges.
+
+- Non-breaking changes — docs, vocabulary additions, a new profile at `status: draft`, bug fixes — can merge as soon as they're reviewed.
+- Breaking or spec-level changes (anything touching `spec/core.md`'s normative rules or `schema/0.1/*.schema.json`) get at least a 7-day comment period on the issue before the pull request merges, so there's time for objections.
+- Disagreements that don't resolve in the issue thread are the maintainer's to decide. This will get more formal (see [ROADMAP.md §7](ROADMAP.md#7-governance--community)) once there's more than one maintainer.
 
 ## Releasing (maintainers)
 

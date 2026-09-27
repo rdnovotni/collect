@@ -19,6 +19,7 @@ from typing import Iterable, Iterator
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
+from . import __version__
 from . import resources as R
 
 EXT_KEY = re.compile(r"^([a-z][a-z0-9-]*):([a-z][A-Za-z0-9]*)$")
@@ -340,3 +341,53 @@ def check_standard() -> list[Issue]:
 
 def issues_to_json(issues: list[Issue]) -> str:
     return json.dumps([asdict(i) for i in issues], indent=2)
+
+
+def _sarif_artifact_uri(location: str) -> str:
+    # Strip a trailing '#index' (JSON array entry) or ':line' (.jsonl line number) so
+    # the remainder is a plain file path SARIF viewers can resolve as an artifact URI.
+    base = location.rsplit("#", 1)[0]
+    head, _, tail = base.rpartition(":")
+    return head if head and tail.isdigit() else base
+
+
+def to_sarif(issues: list[Issue]) -> str:
+    """Render issues as a minimal SARIF 2.1.0 log, for GitHub Actions problem-matcher
+    style inline PR annotations (e.g. via github/codeql-action/upload-sarif)."""
+    level_map = {"error": "error", "warning": "warning"}
+    results = []
+    for i in issues:
+        location = {"physicalLocation": {"artifactLocation": {"uri": _sarif_artifact_uri(i.location)}}}
+        if i.path:
+            location["logicalLocations"] = [{"fullyQualifiedName": i.path}]
+        properties = {}
+        if i.record:
+            properties["record"] = i.record
+        results.append({
+            "ruleId": i.level,
+            "level": level_map.get(i.level, "warning"),
+            "message": {"text": i.message},
+            "locations": [location],
+            **({"properties": properties} if properties else {}),
+        })
+    sarif = {
+        "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+        "version": "2.1.0",
+        "runs": [
+            {
+                "tool": {
+                    "driver": {
+                        "name": "collect",
+                        "informationUri": "https://github.com/rdnovotni/collect",
+                        "version": __version__,
+                        "rules": [
+                            {"id": "error", "shortDescription": {"text": "A Collect validation error"}},
+                            {"id": "warning", "shortDescription": {"text": "A Collect validation warning"}},
+                        ],
+                    }
+                },
+                "results": results,
+            }
+        ],
+    }
+    return json.dumps(sarif, indent=2)

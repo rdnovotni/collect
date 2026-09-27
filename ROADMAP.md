@@ -29,16 +29,13 @@ Until all five hold, the spec stays "draft" — see [`spec/core.md`](spec/core.m
 
 ## 1. Core spec & schema
 
-- **P1 — EDTF Level 2 subset, if a profile needs it.** Seasons, sets of dates (`[1667,1668,1670]`), and qualified individual date-parts aren't in v0.1's subset (see [`spec/core.md` §6](spec/core.md#6-dates)). Add only when a concrete profile needs one of these, so the grammar doesn't grow speculatively.
-- **P1 — Formalize the `local:` id-collision story.** The spec says tools must not assume `local:` ids are unique across collections; write concrete guidance for tools that need to merge two people's `local:` records (id remapping on import) rather than leaving it as an implementer's problem each time.
+- **P1 — EDTF Level 2 subset, if a profile needs it.** Seasons, sets of dates (`[1667,1668,1670]`), and qualified individual date-parts aren't in v0.1's subset (see [`spec/core.md` §6](spec/core.md#6-dates)). Add only when a concrete profile needs one of these, so the grammar doesn't grow speculatively. Reconsidered when adding the `coin` and `stamp` profiles (§2) — neither needed it, so it's still deferred.
 - **P2 — Multi-part / composite items.** Sets that ship as one physical unit (a boxed set, a booklet of stamps, a multi-card insert) don't yet have a clean modeling story distinct from a `collection`. Needs a concrete failure case from real data before designing further, per the project's own contribution priorities.
 - **P2 — Non-USD-centric price modeling for historical/foreign currency.** Current `price` (`amount` + ISO 4217 `currency`) covers the common case; revisit only if real records surface a gap (pre-decimal currencies, tokens, barter).
 - **P3 — Versioned schema `$id` / stable hosting.** Schema `$id`s currently point at `raw.githubusercontent.com/.../main/...`, which moves with the default branch. Before 1.0, decide on stable, version-pinned URLs (e.g. a project domain or a tagged-release raw URL) so external tools can depend on a schema URL that won't change under them.
 
 ## 2. Profiles
 
-- **P1 — `coin`.** Mint mark, denomination, metal composition, mintage, die variety.
-- **P1 — `stamp`.** Perforation, watermark, gum condition, plate/cylinder number — postal history overlaps meaningfully with the postcard profile's `postmark`.
 - **P2 — `trading-card` / `non-sport-card`** (already in `vocab/categories.json`), **`comic`**, **`vinyl-record`**, **`banknote`**, **`ticket`/`program`**. Prioritize by contributor interest — a profile needs a domain expert willing to shape it, not just a category slug that already exists.
 - **P2 — A profile author's checklist / template.** A short worked template (folder skeleton, a minimal `profile.json`, a first vocab file, a first example record) so proposing a new profile is closer to "fill in this template" than "read the spec and figure it out."
 - **P3 — Cross-profile shared sub-vocabularies.** Once 3+ profiles exist, look for fields that turned out not to be hobby-specific after all (e.g. a grading-company list used by both `sports-card` and `coin`) and promote them to `vocab/` if they're genuinely shared.
@@ -46,17 +43,13 @@ Until all five hold, the spec stays "draft" — see [`spec/core.md`](spec/core.m
 ## 3. Tooling & developer experience
 
 - **P0 — Ship `collect-tools` to PyPI.** It's currently install-from-source only (`pip install -e ".[dev]"`); a tagged PyPI release is the difference between "clone the repo" and "pip install" for every downstream tool and profile author. The release workflow ([`.github/workflows/release.yml`](.github/workflows/release.yml)) is in place, using PyPI's Trusted Publishing (OIDC, no stored API token) triggered on a GitHub Release, and the version in [`src/collect_tools/__init__.py`](src/collect_tools/__init__.py) is past the `.dev0` placeholder (`0.1.0`); what's left is a maintainer creating the `collect-tools` project on PyPI, registering this workflow as its trusted publisher, and cutting the first tagged release — all of which require PyPI/GitHub release access this repo's automation doesn't have.
-- **P1 — JSON Schema editor support.** Publish the schemas somewhere `$schema`-aware editors (VS Code + the JSON extension, IntelliJ) can resolve for live autocomplete and inline validation while hand-writing records — depends on stable schema hosting (§1).
-- **P1 — `collect init` / `collect new`.** A command that scaffolds a minimal valid record for a given layer and category, so a first-time user doesn't start from a blank file.
-- **P1 — Richer CI-friendly output.** `--format json` already exists (see [CLI reference](docs/cli-reference.md)); add a GitHub Actions problem-matcher / SARIF option so validator issues show as inline PR annotations on downstream catalog repos, not just log lines.
 - **P2 — Importers from existing formats.** Read exports from popular collection-manager apps and spreadsheet templates already in use in postcard/sports-card communities, and convert to Collect records — this is explicitly called out in the v0.2 milestone and is the fastest path to real adoption evidence.
 - **P2 — Language ports.** A minimal validator (schema + profile + reference checks) in JS/TS (for browser and Node tooling) and one more ecosystem (Go or Rust) would prove the spec isn't accidentally Python-shaped, and unblock web-based tools (§4).
 - **P3 — `collect diff` / `collect merge`.** Comparing two versions of a record or package, and merging edits from two contributors to the same catalog — useful once multiple people co-maintain one open catalog.
 
 ## 4. Ecosystem & interoperability
 
-- **P1 — A public conformance test suite.** Extract the deliberately-invalid fixtures already in [`tests/fixtures/invalid/`](tests/fixtures) plus new ones into a versioned, implementation-agnostic suite (input + expected issues) that any implementation — not just this Python one — can run against itself. This is a prerequisite for "multiple independent implementations" in the v1.0 milestone.
-- **P1 — A minimal browser-based validator.** A static page that runs schema + profile validation client-side (once a JS/TS implementation exists, §3) so someone can paste or drop a record and get feedback with no install — the lowest-friction way for a skeptical collector to try the format.
+- **P1 — A minimal browser-based validator.** A static page that runs schema + profile validation client-side (once a JS/TS implementation exists, §3) so someone can paste or drop a record and get feedback with no install — the lowest-friction way for a skeptical collector to try the format. Still blocked on that JS/TS port (§3), which hasn't started; there's nothing to build client-side yet without hand-duplicating the Python validator's logic in JS, which would drift immediately.
 - **P2 — A reference collection manager** (the v0.3 milestone). Deliberately simple: import/export Collect records, browse a collection, edit records through a form rather than raw JSON. Its job is to prove the format is usable end-to-end for someone who will never open a text editor, not to compete with full-featured commercial tools.
 - **P2 — An open, community-run postcard catalog built on Collect** (also v0.3). Depends on the reference collection manager and on real profile stability; the first place the "catalogs publish, collectors reference" split (see [architecture.md §2](docs/architecture.md#2-why-separate-the-thing-that-was-made-from-the-thing-you-own)) gets exercised for real instead of in examples.
 - **P3 — Outreach to existing catalog sites and marketplaces.** Once there's at least one working importer/exporter and a stable core, approach maintainers of existing hobby databases about publishing (or accepting) a Collect export — this only becomes a credible ask after §3/§4's tooling exists, not before.
@@ -65,20 +58,16 @@ Until all five hold, the spec stays "draft" — see [`spec/core.md`](spec/core.m
 ## 5. Quality, testing & security
 
 - **P0 — Keep 100% of `check-standard`/`validate` paths covered by `pytest`.** Already true today (all tests green, including both profiles' examples) — the goal is to keep any new validator behavior landing with a fixture in `tests/fixtures`, not just an example that happens to pass.
-- **P1 — Fuzz/property-based testing of the EDTF pattern and the validator.** The EDTF regex in [`common.schema.json`](schema/0.1/common.schema.json) is intricate; property-based tests (e.g. Hypothesis) generating both valid and invalid date strings would catch edge cases example-based tests miss.
-- **P1 — Dependency and supply-chain hygiene.** Pin/audit the two runtime dependencies (`jsonschema`, `referencing`) and add Dependabot (or equivalent) so version bumps are reviewed rather than silent.
 - **P2 — Large-package performance.** `collect validate` currently loads everything into memory; before packages reach real-catalog scale (thousands of records with images), profile it and consider streaming validation for `.jsonl` packages.
 - **P2 — A security/privacy review of the private-data convention.** §10 of the core spec is a *convention* tools should honor, not an enforced access control — document this gap explicitly somewhere prominent (it's already implicit in `spec/core.md`, but a contributor building a "publish my collection" tool should not be able to miss it) and consider whether the validator should warn when a record with private fields is being emitted from a `--publish`-style tool command in the future.
 
 ## 6. Documentation & website
 
-- **P1 — A project website.** A static site (rendering `spec/`, `docs/`, and a live schema browser) is a much lower barrier to first contact than "clone the repo and read Markdown," especially for non-developer collectors evaluating whether to care.
 - **P2 — A visual diagram of the layer model** (work → catalog → variant → instance, collection alongside) for the README and website — the concept is simple once seen, and currently only exists as the table in [README.md](README.md#the-core-idea-layers).
 - **P3 — Translations of the spec.** Not urgent while the spec itself is still changing pre-1.0 (translations would need re-syncing on every change), but worth planning for once the core freezes.
 
 ## 7. Governance & community
 
-- **P1 — Write down the actual decision process.** [`CONTRIBUTING.md`](CONTRIBUTING.md) covers *how to propose* a change; it doesn't yet say *who decides* and *by what process* a spec-change or profile-proposal issue gets accepted. Doesn't need to be heavyweight — even "the maintainer decides, with a comment period on breaking changes" written down explicitly is more than exists today.
 - **P2 — A place to discuss that isn't just GitHub issues.** As profile count and contributor count grow, a lower-friction space (Discussions tab, or a small forum/Discord) for "does this fit the format?" questions that aren't yet issue-shaped would match how [CONTRIBUTING.md](CONTRIBUTING.md) already says the most valuable contributions are — informal reports of real items that don't fit.
 - **P3 — A steering/maintainers group.** Only once there's more than one active maintainer and more than one organization depending on the spec — premature before then.
 

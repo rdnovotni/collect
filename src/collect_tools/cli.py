@@ -8,7 +8,8 @@ from pathlib import Path
 
 from . import __version__, SPEC_VERSION
 from .csvmap import CsvError, csv_to_records, records_to_csv
-from .validate import check_standard, issues_to_json, load_records, validate_records
+from .scaffold import LAYERS, profile_fields_for, scaffold_record
+from .validate import LoadedRecord, check_standard, issues_to_json, load_records, to_sarif, validate_records
 
 
 def _report(issues, fmt: str, strict: bool, count: int | None = None) -> int:
@@ -16,6 +17,8 @@ def _report(issues, fmt: str, strict: bool, count: int | None = None) -> int:
     warnings = [i for i in issues if i.level == "warning"]
     if fmt == "json":
         print(issues_to_json(issues))
+    elif fmt == "sarif":
+        print(to_sarif(issues))
     else:
         for i in issues:
             print(i)
@@ -49,6 +52,28 @@ def cmd_validate(args) -> int:
 
 def cmd_check_standard(args) -> int:
     return _report(check_standard(), args.format, args.strict)
+
+
+def cmd_init(args) -> int:
+    try:
+        record = scaffold_record(args.layer, args.category)
+    except ValueError as e:
+        print(f"ERROR   {e}", file=sys.stderr)
+        return 2
+    errors = [i for i in validate_records([LoadedRecord(record, "<init>")]) if i.level == "error"]
+    if errors:
+        # Safety net: a scaffold that fails its own validator is a bug in `collect init`,
+        # not something the user did wrong.
+        for i in errors:
+            print(i, file=sys.stderr)
+        print("ERROR   the generated scaffold failed validation; please report this", file=sys.stderr)
+        return 2
+    _write(args.output, json.dumps(record, indent=2, ensure_ascii=False) + "\n")
+    if args.category:
+        fields = profile_fields_for(args.layer, args.category)
+        if fields:
+            print(f"NOTE    '{args.category}' profile fields available on layer '{args.layer}': {', '.join(fields)}", file=sys.stderr)
+    return 0
 
 
 def cmd_csv2json(args) -> int:
@@ -92,13 +117,19 @@ def main(argv: list[str] | None = None) -> int:
     v = sub.add_parser("validate", help="validate record files, JSONL files or package directories")
     v.add_argument("paths", nargs="+")
     v.add_argument("--strict", action="store_true", help="treat warnings as errors")
-    v.add_argument("--format", choices=["text", "json"], default="text")
+    v.add_argument("--format", choices=["text", "json", "sarif"], default="text")
     v.set_defaults(func=cmd_validate)
 
     s = sub.add_parser("check-standard", help="validate the standard's own profiles and vocabularies")
     s.add_argument("--strict", action="store_true")
-    s.add_argument("--format", choices=["text", "json"], default="text")
+    s.add_argument("--format", choices=["text", "json", "sarif"], default="text")
     s.set_defaults(func=cmd_check_standard)
+
+    i = sub.add_parser("init", help="scaffold a minimal valid record for a layer, and optionally a category")
+    i.add_argument("--layer", required=True, choices=LAYERS)
+    i.add_argument("--category", help="a category with a matching profile, e.g. 'postcard' (see vocab/categories.json)")
+    i.add_argument("-o", "--output", help="write to a file instead of stdout")
+    i.set_defaults(func=cmd_init)
 
     c = sub.add_parser("csv2json", help="convert a CSV spreadsheet to Collect records")
     c.add_argument("input")

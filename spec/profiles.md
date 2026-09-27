@@ -1,6 +1,6 @@
 # Profiles — v0.1 (draft)
 
-A profile extends the core with fields for one kind of collectible. Two profiles exist today: [`profiles/postcard/0.1.0/`](../profiles/postcard/0.1.0/) and [`profiles/sports-card/0.1.0/`](../profiles/sports-card/0.1.0/).
+A profile extends the core with fields for one kind of collectible. Profiles today: [`profiles/postcard/0.1.0/`](../profiles/postcard/0.1.0/), [`profiles/sports-card/0.1.0/`](../profiles/sports-card/0.1.0/), [`profiles/coin/0.1.0/`](../profiles/coin/0.1.0/) and [`profiles/stamp/0.1.0/`](../profiles/stamp/0.1.0/).
 
 ## Using profile fields
 
@@ -55,4 +55,4 @@ Run `collect check-standard` to validate every profile and vocabulary in the rep
 
 ## Planned profiles
 
-`coin` and `stamp` are next (see [`ROADMAP.md`](../ROADMAP.md#2-profiles)). Proposals for others are welcome — open an issue using the "Profile proposal" template.
+`trading-card`, `non-sport-card`, `comic`, `vinyl-record`, `banknote` and `ticket`/`program` are next, prioritized by contributor interest (see [`ROADMAP.md`](../ROADMAP.md#2-profiles)). Proposals for others are welcome — open an issue using the "Profile proposal" template.

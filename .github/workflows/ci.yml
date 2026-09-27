@@ -18,9 +18,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install
         run: pip install -e ".[dev]"
+      - name: Audit dependencies for known vulnerabilities
+        run: |
+          pip install pip-audit
+          pip-audit
       - name: Check the standard's own files
         run: collect check-standard --strict
       - name: Validate examples
-        run: collect validate --strict examples/postcard examples/sports-card examples/package
+        run: collect validate --strict examples/postcard examples/sports-card examples/coin examples/stamp examples/package
       - name: Tests
         run: pytest -q
